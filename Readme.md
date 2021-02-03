@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов» [![Build status][travis-image]][travis-url]
 
 * Студент: [Николай](https://up.htmlacademy.ru/react/6/user/1712723).
-* Наставник: `Неизвестно`.
+* Наставник: [Анастасия Смирнова](https://htmlacademy.ru/profile/id232838).
 
 ---
 
