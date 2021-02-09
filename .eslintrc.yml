@@ -16,3 +16,13 @@ plugins: ['react']
 settings:
   react:
     version: '16'
+
+rules:
+  no-tabs: off
+  indent:
+      - error
+      - tab
+  react/jsx-indent:
+      - error
+      - tab
+  semi: off
