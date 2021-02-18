@@ -1,4 +1,5 @@
 const path = require('path');
+const Dotenv = require('dotenv-webpack')
 
 module.exports = {
     entry: './src/index.jsx',
@@ -10,7 +11,13 @@ module.exports = {
         contentBase: path.resolve(__dirname, 'public'),
         open: false,
         port: 1337,
+        historyApiFallback: true,
     },
+    plugins:[
+        new Dotenv({
+            path: path.resolve(__dirname, 'src', 'base.env')
+        })
+    ],
     module: {
         rules: [
         {

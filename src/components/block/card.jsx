@@ -1,36 +1,60 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
 
 const Card = (props) => {
-	const objCard = props.objCard;
+	const {
+		id,
+		rating,
+		is_premium: premium,
+		price,
+		type,
+		title,
+		is_favorite: isFavorite,
+		preview_image: previewImage,
+	} = props.objCard;
+	const isNear = props.isNear || false;
+	let starWidth = ``;
+	{
+		let temp = Math.floor(rating);
+		starWidth = `${(rating - temp) * 10 >= 5 ? temp * 20 + 20 : temp * 20}%`;
+	}
 	return (
 		<>
-			<article className="cities__place-card place-card">
-				{objCard.premium && (
+			<article
+				className={`${
+					isNear ? `near-places__card` : `cities__place-card`
+				} place-card`}
+			>
+				{premium && (
 					<div className="place-card__mark">
 						<span>Premium</span>
 					</div>
 				)}
-				<div className="cities__image-wrapper place-card__image-wrapper">
-					<a href="#">
+				<div
+					className={`${
+						isNear ? `near-places__image-wrapper` : `cities__image-wrapper`
+					}place-card__image-wrapper`}
+				>
+					<Link to={`/offer/${id}`}>
 						<img
 							className="place-card__image"
-							src={objCard.srcIMG}
+							src={previewImage}
 							width={260}
 							height={200}
 							alt="Place image"
 						/>
-					</a>
+					</Link>
 				</div>
 				<div className="place-card__info">
 					<div className="place-card__price-wrapper">
 						<div className="place-card__price">
-							<b className="place-card__price-value">€{objCard.price}</b>
+							<b className="place-card__price-value">€{price}</b>
 							<span className="place-card__price-text">/&nbsp;night</span>
 						</div>
 						<button
 							className={
-								objCard.button
+								isFavorite
 									? `place-card__bookmark-button place-card__bookmark-button--active button`
 									: `place-card__bookmark-button button`
 							}
@@ -44,14 +68,14 @@ const Card = (props) => {
 					</div>
 					<div className="place-card__rating rating">
 						<div className="place-card__stars rating__stars">
-							<span style={{width: objCard.starWidth}} />
+							<span style={{width: starWidth}} />
 							<span className="visually-hidden">Rating</span>
 						</div>
 					</div>
 					<h2 className="place-card__name">
-						<a href="#">{objCard.comment}</a>
+						<Link to={`/offer/${id}`}>{title}</Link>
 					</h2>
-					<p className="place-card__type">{objCard.typeRoom}</p>
+					<p className="place-card__type">{type}</p>
 				</div>
 			</article>
 		</>
@@ -59,14 +83,19 @@ const Card = (props) => {
 };
 
 Card.propTypes = {
+	isNear: PropTypes.bool,
 	objCard: PropTypes.shape({
-		premium: PropTypes.bool.isRequired,
-		srcIMG: PropTypes.string.isRequired,
-		price: PropTypes.string.isRequired,
-		starWidth: PropTypes.string.isRequired,
-		button: PropTypes.bool.isRequired,
-		comment: PropTypes.string.isRequired,
-		typeRoom: PropTypes.string.isRequired,
+		id: PropTypes.number.isRequired,
+		price: PropTypes.number.isRequired,
+		rating: PropTypes.number.isRequired,
+		type: PropTypes.string.isRequired,
+		title: PropTypes.string.isRequired,
+		// eslint-disable-next-line camelcase
+		is_premium: PropTypes.bool.isRequired,
+		// eslint-disable-next-line camelcase
+		is_favorite: PropTypes.bool.isRequired,
+		// eslint-disable-next-line camelcase
+		preview_image: PropTypes.string.isRequired,
 	}),
 };
 
