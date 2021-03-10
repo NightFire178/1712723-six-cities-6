@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import axios from "../utils/axios";
 import Loader from "./block/loader";
 import Card from "./block/card";
-
+// FIXME avatar server url
 const CardProperty = (props) => {
 	const monthNames = [
 		`January`,
@@ -25,19 +25,24 @@ const CardProperty = (props) => {
 	// мог бы использовать переменные везде кроме dataState, но сделал так на случай расширения функционала работы с сервером
 	const [cardState, setCardState] = useState();
 	const [cardNearbyState, setCardNearbyState] = useState();
+	console.log(cardNearbyState)
 	const [cardCommentsState, setCardCommentsState] = useState();
+	console.log(cardCommentsState)
 	const [dataState, setDataState] = useState();
 	useEffect(() => {
 		let h = axios(`${process.env.SERVER_URL}/hotels/${cardId}`).then((res) => {
 			setCardState(res.data);
+			console.log(res.data);
 		});
 		let n = axios(`${process.env.SERVER_URL}/hotels/${cardId}/nearby`).then(
 			(res) => {
 				setCardNearbyState(res.data);
+				console.log(res.data);
 			}
 		);
 		let c = axios(`${process.env.SERVER_URL}/comments/${cardId}`).then((res) => {
 			setCardCommentsState(res.data);
+			console.log(res.data);
 		});
 		Promise.all([h, n, c])
 			.then(() => {
