@@ -3,7 +3,6 @@ import {BrowserRouter, Route, Switch, Link} from "react-router-dom";
 import Home from "./components/home";
 import CardProperty from "./components/card-property"
 import Login from "./components/login"
-import Favorites from "./components/favorites"
 
 const Router = () => {
 	return (
@@ -11,8 +10,6 @@ const Router = () => {
 			<Switch>
 				<Route path="/" exact component={Home} />
 				<Route path="/login" exact component={Login} />
-				<Route path="/main/:city?" exact component={Home} />
-				<Route path="/main/:city?" exact component={Favorites} />
 				<Route path="/offer/:id?" exact component={CardProperty} />
 				<Route
 					render={() => (

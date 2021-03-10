@@ -1,33 +1,29 @@
-/* eslint-disable consistent-return */
 import React, {useEffect, useState} from "react";
 import Loader from "./block/loader";
-import axios from "../utils/axios";
+import {useSelector} from "react-redux";
 import Card from "./block/card";
 import Header from "./block/header";
 import Nav from "./block/nav";
 import PropTypes from "prop-types";
-import {Redirect} from "react-router-dom";
 
-const HomeComponents = (props) => {
-	let city = props.match.params.city || `Amsterdam`;
-	// arr citystate popular
-	const [cityesPopularState, setCityesPopularState] = useState();
+const HomeComponents = () => {
+	const {city, hotels, load} = useSelector((state) => ({
+		hotels: state.hotels,
+		city: state.appState.cityNow,
+		load: state.appState.load,
+	}));
 	// state output for user (city)
 	const [renderCityesState, setRenderCityesState] = useState();
 	// number of places
 	const [placesState, setPlacesState] = useState(0);
 	// state output for user
 	const [sortState, setSortState] = useState(`Popular`);
-	// arr citystate (clickSort is not required to update the data from the server)
-	const [cityesState, setCityesState] = useState(0);
-	// state sort value
-	const [clickSortState, setClickSortState] = useState(0);
 	// Open Close sort panel
 	const [sortOpenState, setSortOpenState] = useState(false);
-
+	// sort value
+	const [sortValueState, setSortValueState] = useState(0);
 	// SET SITY (user)
 	function setSity(cityes) {
-		cityes = cityes || cityesState;
 		let i = 0;
 		setRenderCityesState(
 			cityes.map((obj) => {
@@ -37,13 +33,13 @@ const HomeComponents = (props) => {
 		);
 		return i;
 	}
+	useEffect(()=>{console.log("use")})
 	// SORTCITY + SET(user)
 	const sortAndSetCityes = (value, cityes) => {
-		let i = 0
-		setClickSortState(value)
+		let i = 0;
 		switch (value) {
 		case 0:
-			i = setSity(cityesPopularState);
+			i = setSity(cityes);
 			break;
 		case 1:
 			cityes.sort((a, b) => (a.price > b.price ? 1 : -1));
@@ -66,8 +62,7 @@ const HomeComponents = (props) => {
 		if (sortOpenState) {
 			if (evt.target.classList.contains(`places__option`)) {
 				setSortState(evt.target.textContent);
-				let cityes = cityesState;
-				sortAndSetCityes(evt.target.value, cityes);
+				setSortValueState(evt.target.value);
 			}
 			setSortOpenState(!sortOpenState);
 		} else if (
@@ -77,43 +72,18 @@ const HomeComponents = (props) => {
 			setSortOpenState(!sortOpenState);
 		}
 	};
-	// Redirect on address error
-	if (
-		[
-			`Paris`,
-			`Cologne`,
-			`Brussels`,
-			`Amsterdam`,
-			`Hamburg`,
-			`Dusseldorf`,
-		].indexOf(city) < 0
-	) {
-		return (
-			<>
-				<Redirect to={`/404`} />
-			</>
-		);
-	}
 	// receiving data(city) from the server, sort by city, sort by userSort, sending to the user
 	useEffect(() => {
-		axios(`${process.env.SERVER_URL}/hotels`)
-			.then((res) => {
-				let cityes = res.data.filter((obj) => obj.city.name === city);
-				setCityesPopularState(cityes.slice())
-				if (!clickSortState) {
-					setCityesState(cityes.slice());
-					let i = setSity(cityes);
-					setPlacesState(i);
-					if (i <= 0) {
-						setRenderCityesState(<div>В городе {city} нет комнат</div>);
-					}
-				} else {
-					sortAndSetCityes(clickSortState, cityes);
-				}
-			})
-			.catch(()=>(setRenderCityesState(<div>Ошибка связи с сервером</div>)));
-	}, [city]);
-	return (
+		let cityes = hotels.filter((obj) => obj.city.name === city).slice();
+		let i = sortAndSetCityes(sortValueState, cityes);
+		setPlacesState(i);
+		if (i <= 0) {
+			setRenderCityesState(<div>В городе {city} нет комнат</div>);
+		}
+	}, [city, hotels, sortValueState]);
+
+
+	return load ? (
 		<>
 			<div onClick={clickSort}>
 				<div style={{display: `none`}}>
@@ -141,7 +111,7 @@ const HomeComponents = (props) => {
 					<Header isMain={true} />
 					<main className="page__main page__main--index">
 						<h1 className="visually-hidden">Cities</h1>
-						<Nav city={city} />
+						<Nav />
 						<div className="cities">
 							<div className="cities__places-container container">
 								<section className="cities__places places">
@@ -213,6 +183,8 @@ const HomeComponents = (props) => {
 				</div>
 			</div>
 		</>
+	) : (
+		<Loader />
 	);
 };
 
