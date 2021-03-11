@@ -5,6 +5,7 @@ import Card from "./block/card";
 import Header from "./block/header";
 import Nav from "./block/nav";
 import PropTypes from "prop-types";
+import Map from "./block/map";
 
 const HomeComponents = () => {
 	const {city, hotels, load} = useSelector((state) => ({
@@ -22,6 +23,8 @@ const HomeComponents = () => {
 	const [sortOpenState, setSortOpenState] = useState(false);
 	// sort value
 	const [sortValueState, setSortValueState] = useState(0);
+	// leaflet map
+	const [mapS, setSMap] = useState();
 	// SET SITY (user)
 	function setSity(cityes) {
 		let i = 0;
@@ -33,7 +36,6 @@ const HomeComponents = () => {
 		);
 		return i;
 	}
-	useEffect(()=>{console.log("use")})
 	// SORTCITY + SET(user)
 	const sortAndSetCityes = (value, cityes) => {
 		let i = 0;
@@ -78,10 +80,16 @@ const HomeComponents = () => {
 		let i = sortAndSetCityes(sortValueState, cityes);
 		setPlacesState(i);
 		if (i <= 0) {
+			setSMap(<Map city={{
+				lat: 40.835292,
+				lng: -73.916236,
+				zoom: 10
+			}} />);
 			setRenderCityesState(<div>В городе {city} нет комнат</div>);
+		} else {
+			setSMap(<Map hotels={cityes} />);
 		}
 	}, [city, hotels, sortValueState]);
-
 
 	return load ? (
 		<>
@@ -175,7 +183,7 @@ const HomeComponents = () => {
 									</div>
 								</section>
 								<div className="cities__right-section">
-									<section className="cities__map map" />
+									<section className="cities__map map">{mapS}</section>
 								</div>
 							</div>
 						</div>
