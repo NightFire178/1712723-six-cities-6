@@ -80,11 +80,15 @@ const HomeComponents = () => {
 		let i = sortAndSetCityes(sortValueState, cityes);
 		setPlacesState(i);
 		if (i <= 0) {
-			setSMap(<Map city={{
-				lat: 40.835292,
-				lng: -73.916236,
-				zoom: 10
-			}} />);
+			setSMap(
+				<Map
+					city={{
+						lat: 40.835292,
+						lng: -73.916236,
+						zoom: 10,
+					}}
+				/>
+			);
 			setRenderCityesState(<div>В городе {city} нет комнат</div>);
 		} else {
 			setSMap(<Map hotels={cityes} />);
@@ -135,9 +139,11 @@ const HomeComponents = () => {
 											onClick={clickSort}
 										>
 											{sortState}
-											<svg className="places__sorting-arrow" width={7} height={4}>
-												<use xlinkHref="#icon-arrow-select" />
-											</svg>
+											<div onClick={clickSort}>
+												<svg className="places__sorting-arrow" width={7} height={4}>
+													<use xlinkHref="#icon-arrow-select" />
+												</svg>
+											</div>
 										</span>
 										<ul
 											className={`places__options places__options--custom ${

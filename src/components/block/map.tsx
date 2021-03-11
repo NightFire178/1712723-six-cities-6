@@ -2,9 +2,14 @@ import React, { FC, useEffect, useRef } from "react"
 import leaflet from "leaflet"
 import hotel from '../../template/hotel'
 import "leaflet/dist/leaflet.css"
-
-const Map: FC<{ hotels: Array<hotel>}> = ({ hotels }) => {
-	const city = hotels[0].city.location
+type pink = {
+	latitude: number,
+	longitude: number,
+	zoom: number
+}
+const Map: FC<{ hotels: Array<hotel>, pink?: pink }> = ({ hotels, pink }) => {
+	console.log('map');
+	const city = pink || hotels[0].city.location
 	const mapRef: any = useRef();
 	useEffect(() => {
 		mapRef.current = leaflet.map(`map`, {
@@ -12,7 +17,8 @@ const Map: FC<{ hotels: Array<hotel>}> = ({ hotels }) => {
 				lat: city.latitude,
 				lng: city.longitude
 			},
-			zoom: city.zoom
+			zoom: city.zoom,
+			zoomControl: false
 		});
 
 		leaflet
@@ -35,7 +41,14 @@ const Map: FC<{ hotels: Array<hotel>}> = ({ hotels }) => {
 						icon: customIcon
 					})
 					.addTo(mapRef.current)
-					.bindPopup(hotels.title);
+					.bindPopup(hotels.title)
+					.on('click', (evt: any) => {
+						console.log(evt)
+						mapRef.current.flyTo([hotels.location.latitude, hotels.location.longitude], hotels.location.zoom)
+					})
+					.on('popupclose', ()=>{
+						mapRef.current.flyTo([city.latitude, city.longitude], city.zoom)
+					})
 			});
 		}
 		return () => { mapRef.current.remove() }

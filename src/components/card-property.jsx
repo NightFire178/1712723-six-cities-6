@@ -1,9 +1,7 @@
-import React, {useEffect, useState} from "react";
-import {Redirect} from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import Header from "./block/header";
 import PropTypes from "prop-types";
 import axios from "../utils/axios";
-import Loader from "./block/loader";
 import Card from "./block/card";
 // FIXME avatar server url
 const CardProperty = (props) => {
@@ -25,9 +23,9 @@ const CardProperty = (props) => {
 	// мог бы использовать переменные везде кроме dataState, но сделал так на случай расширения функционала работы с сервером
 	const [cardState, setCardState] = useState();
 	const [cardNearbyState, setCardNearbyState] = useState();
-	console.log(cardNearbyState)
+	console.log(cardNearbyState);
 	const [cardCommentsState, setCardCommentsState] = useState();
-	console.log(cardCommentsState)
+	console.log(cardCommentsState);
 	const [dataState, setDataState] = useState();
 	useEffect(() => {
 		let h = axios(`${process.env.SERVER_URL}/hotels/${cardId}`).then((res) => {
@@ -51,14 +49,15 @@ const CardProperty = (props) => {
 			.catch(() => setDataState(false));
 		window.scrollTo(0, 0);
 	}, [cardId]);
+
+	const starWidth = (rating) => {
+		let temp = Math.floor(rating);
+		return `${(rating - temp) * 10 >= 5 ? temp * 20 + 20 : temp * 20}%`;
+	};
 	if (dataState) {
-		const starWidth = (rating) => {
-			let temp = Math.floor(rating);
-			return `${(rating - temp) * 10 >= 5 ? temp * 20 + 20 : temp * 20}%`;
-		};
 		return (
 			<div>
-				<div style={{display: `none`}}>
+				<div style={{ display: `none` }}>
 					<svg xmlns="http://www.w3.org/2000/svg">
 						<symbol id="icon-arrow-select" viewBox="0 0 7 4">
 							<path
@@ -118,7 +117,7 @@ const CardProperty = (props) => {
 									</div>
 									<div className="property__rating rating">
 										<div className="property__stars rating__stars">
-											<span style={{width: starWidth(cardState.rating)}} />
+											<span style={{ width: starWidth(cardState.rating) }} />
 											<span className="visually-hidden">Rating</span>
 										</div>
 										<span className="property__rating-value rating__value">
@@ -196,7 +195,7 @@ const CardProperty = (props) => {
 														<div className="reviews__info">
 															<div className="reviews__rating rating">
 																<div className="reviews__stars rating__stars">
-																	<span style={{width: starWidth(comment.rating)}} />
+																	<span style={{ width: starWidth(comment.rating) }} />
 																	<span className="visually-hidden">Rating</span>
 																</div>
 															</div>
@@ -343,14 +342,8 @@ const CardProperty = (props) => {
 				</div>
 			</div>
 		);
-	} else if (dataState === false) {
-		return (
-			<>
-				<Redirect to={`/404`} />
-			</>
-		);
 	} else {
-		return <Loader />;
+		return <></>;
 	}
 };
 
