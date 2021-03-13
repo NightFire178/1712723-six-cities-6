@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Loader from "./block/loader";
-import {useSelector} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Card from "./block/card";
 import Header from "./block/header";
 import Nav from "./block/nav";
@@ -8,31 +8,30 @@ import PropTypes from "prop-types";
 import Map from "./block/map";
 
 const HomeComponents = () => {
-  const {city, hotels, load} = useSelector((state) => ({
+  const dispatch = useDispatch()
+  const { city, hotels, load, sortState, sortValueState } = useSelector((state) => ({
     hotels: state.hotels,
     city: state.appState.cityNow,
     load: state.appState.load,
+    sortState: state.appState.sort.text,
+    sortValueState: state.appState.sort.value
   }));
   // state output for user (city)
   const [renderCityesState, setRenderCityesState] = useState();
   // number of places
   const [placesState, setPlacesState] = useState(0);
-  // state output for user
-  const [sortState, setSortState] = useState(`Popular`);
   // Open Close sort panel
   const [sortOpenState, setSortOpenState] = useState(false);
-  // sort value
-  const [sortValueState, setSortValueState] = useState(0);
   // leaflet map
   const [mapS, setSMap] = useState();
   // SET SITY (user)
   function setSity(cityes) {
     let i = 0;
     setRenderCityesState(
-        cityes.map((obj) => {
-          i++;
-          return <Card key={obj.id} objCard={obj} />;
-        })
+      cityes.map((obj) => {
+        i++;
+        return <Card key={obj.id} objCard={obj} />;
+      })
     );
     return i;
   }
@@ -63,8 +62,7 @@ const HomeComponents = () => {
   const clickSort = (evt) => {
     if (sortOpenState) {
       if (evt.target.classList.contains(`places__option`)) {
-        setSortState(evt.target.textContent);
-        setSortValueState(evt.target.value);
+        dispatch({ type: `SORT_SET`, payload: {text: evt.target.textContent, value:evt.target.value} });
       }
       setSortOpenState(!sortOpenState);
     } else if (
@@ -81,13 +79,13 @@ const HomeComponents = () => {
     setPlacesState(i);
     if (i <= 0) {
       setSMap(
-          <Map
-            city={{
-              lat: 40.835292,
-              lng: -73.916236,
-              zoom: 10,
-            }}
-          />
+        <Map
+          city={{
+            lat: 40.835292,
+            lng: -73.916236,
+            zoom: 10,
+          }}
+        />
       );
       setRenderCityesState(<div>В городе {city} нет комнат</div>);
     } else {
@@ -98,7 +96,7 @@ const HomeComponents = () => {
   return load ? (
     <>
       <div onClick={clickSort}>
-        <div style={{display: `none`}}>
+        <div style={{ display: `none` }}>
           <svg xmlns="http://www.w3.org/2000/svg">
             <symbol id="icon-arrow-select" viewBox="0 0 7 4">
               <path

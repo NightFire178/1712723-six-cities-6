@@ -6,17 +6,25 @@ interface SystemActionTypes {
 export type appState = {
   cityNow: string,
   isAuth: boolean,
-  load: boolean
+  load: boolean,
+  sort: {
+    text: string,
+    value: number
+  }
 }
 
 const initialState: appState = {
   cityNow: `Amsterdam`,
   isAuth: false,
-  load: false
+  load: false,
+  sort: { text:`Popular`, value:0}
 }
 
 function appState(state = initialState, action: SystemActionTypes): appState {
   switch (action.type) {
+    case 'SORT_SET':
+      state.sort = action.payload
+      return state;
     case 'CITY_SET':
       state.cityNow = action.payload
       return state;
