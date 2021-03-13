@@ -7,9 +7,12 @@ type pink = {
 	longitude: number,
 	zoom: number
 }
-const Map: FC<{ hotels: Array<hotel>, pink?: pink }> = ({ hotels, pink }) => {
+const Map: FC<{ hotels: Array<hotel>, pink?: pink&boolean }> = ({ hotels, pink=false }) => {
 	console.log('map');
-	const city = pink || hotels[0].city.location
+  let city:any = hotels[0].city.location
+  if(pink){
+    city =  pink
+  }
 	const mapRef: any = useRef();
 	useEffect(() => {
 		mapRef.current = leaflet.map(`map`, {
@@ -26,13 +29,12 @@ const Map: FC<{ hotels: Array<hotel>, pink?: pink }> = ({ hotels, pink }) => {
 				attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
 			})
 			.addTo(mapRef.current);
-		if (hotels[0].location) {
+      const customIcon = leaflet.icon({
+        iconUrl: `./img/pin.svg`,
+        iconSize: [27, 39]
+      });
+		if (!pink) {
 			hotels.forEach((hotels) => {
-				const customIcon = leaflet.icon({
-					iconUrl: `./img/pin.svg`,
-					iconSize: [27, 39]
-				});
-
 				leaflet.marker({
 					lat: hotels.location.latitude,
 					lng: hotels.location.longitude
@@ -50,7 +52,17 @@ const Map: FC<{ hotels: Array<hotel>, pink?: pink }> = ({ hotels, pink }) => {
 						mapRef.current.flyTo([city.latitude, city.longitude], city.zoom)
 					})
 			});
-		}
+		} else {
+      leaflet.marker({
+        lat: city.latitude,
+        lng: city.longitude
+      },
+        {
+          icon: customIcon
+        })
+        .addTo(mapRef.current)
+        .bindPopup(hotels[0].title)
+    }
 		return () => { mapRef.current.remove() }
 	});
 

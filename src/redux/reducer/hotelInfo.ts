@@ -1,6 +1,6 @@
 // TODO обновление списка отелей при формировании этой хрени
 
-import comments from "../../template/comments"
+import comments from "../../template/comment"
 
 type state = {
 	id: number,
@@ -20,7 +20,7 @@ const hotelInfo = (state: hotelInfo = [], {type, payload}: SystemActionTypes): h
 	switch (type) {
 		case `SET_HOTEL_INFO`: 
 			temp = state.findIndex(obj => obj.id === payload.id)
-			if (temp) {
+			if (temp>=0) {
 				state[temp] = payload
 				return state
 			} else {
@@ -28,7 +28,7 @@ const hotelInfo = (state: hotelInfo = [], {type, payload}: SystemActionTypes): h
 			}
 		case `ADD_COMMENT`:
 			temp = state.findIndex(obj => obj.id === payload.id)
-			if(temp){
+			if(temp>=0){
 				state[temp].comment = payload.comments
 				return state
 			} else{

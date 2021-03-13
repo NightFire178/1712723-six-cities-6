@@ -1,17 +1,21 @@
 {
-    "compilerOptions": {
-        "target": "es5",
-		"outDir": "./public/",
-        "jsx": "react",
-        "noEmitOnError": true,
-        "noUnusedLocals": true,
-        "removeComments": true,
-        "noImplicitAny": true,
-        "esModuleInterop": true,
-        "baseUrl": ".",
-		"strict": true
-    },
-    "exclude": [
-        "node_modules"
-    ]
+  "compilerOptions": {
+    "target": "es5",
+    "outDir": "./public/",
+    "jsx": "react",
+    "noEmitOnError": true,
+    "noUnusedLocals": true,
+    "removeComments": true,
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "strict": true
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
 }

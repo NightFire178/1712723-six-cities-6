@@ -3994,6 +3994,11 @@ nice-try@^1.0.4:
   resolved "https://registry.npmjs.org/nice-try/-/nice-try-1.0.5.tgz"
   integrity sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
 
+node-core-lib@^0.11.11:
+  version "0.11.11"
+  resolved "https://registry.yarnpkg.com/node-core-lib/-/node-core-lib-0.11.11.tgz#05e1342f70a10821876401017d9ca23febd66571"
+  integrity sha1-BeE0L3ChCCGHZAEBfZyiP+vWZXE=
+
 node-forge@^0.10.0:
   version "0.10.0"
   resolved "https://registry.npmjs.org/node-forge/-/node-forge-0.10.0.tgz"

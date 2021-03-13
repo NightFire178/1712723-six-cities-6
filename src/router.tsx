@@ -3,7 +3,6 @@ import {BrowserRouter, Route, Switch, Link} from "react-router-dom";
 import Home from "./components/home";
 import CardProperty from "./components/card-property"
 import Login from "./components/login"
-import map from "./components/block/map" // FIXME
 
 const Router = () => {
 	return (
@@ -12,7 +11,6 @@ const Router = () => {
 				<Route path="/" exact component={Home} />
 				<Route path="/login" exact component={Login} />
 				<Route path="/offer/:id?" exact component={CardProperty} />
-				<Route path= "/map" exact component = {map}/> 
 				<Route
 					render={() => (
 						<>
