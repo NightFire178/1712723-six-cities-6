@@ -1,5 +1,5 @@
-import React, { Fragment, useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, {Fragment, useState, useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import PropTypes from "prop-types";
 
 const Nav = () => {

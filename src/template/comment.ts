@@ -1,5 +1,5 @@
 import User from "./user"
-export default interface Comment{
+export default interface Comment {
 	comment:string,
 	data: string,
 	id: number,

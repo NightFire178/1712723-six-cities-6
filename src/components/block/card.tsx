@@ -1,8 +1,8 @@
 import React from "react";
-import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
+import hotel from "../../template/hotel"
 
-const Card = (props) => {
+const Card:React.FC<{objCard:hotel , isNear?:boolean}> = ({objCard, isNear = false}) => {
 	const {
 		id,
 		rating,
@@ -12,8 +12,7 @@ const Card = (props) => {
 		title,
 		is_favorite: isFavorite,
 		preview_image: previewImage,
-	} = props.objCard;
-	const isNear = props.isNear || false;
+	} = objCard;
 	let starWidth = ``;
 	{
 		let temp = Math.floor(rating);
@@ -82,21 +81,5 @@ const Card = (props) => {
 	);
 };
 
-Card.propTypes = {
-	isNear: PropTypes.bool,
-	objCard: PropTypes.shape({
-		id: PropTypes.number.isRequired,
-		price: PropTypes.number.isRequired,
-		rating: PropTypes.number.isRequired,
-		type: PropTypes.string.isRequired,
-		title: PropTypes.string.isRequired,
-		// eslint-disable-next-line camelcase
-		is_premium: PropTypes.bool.isRequired,
-		// eslint-disable-next-line camelcase
-		is_favorite: PropTypes.bool.isRequired,
-		// eslint-disable-next-line camelcase
-		preview_image: PropTypes.string.isRequired,
-	}),
-};
 
 export default Card;

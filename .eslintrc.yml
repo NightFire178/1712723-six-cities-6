@@ -5,7 +5,7 @@ env:
 
 
 extends: ['htmlacademy/es6', 'plugin:react/recommended']
-globals: 
+globals:
   process: true
 
 parserOptions:
@@ -21,11 +21,4 @@ settings:
     version: '16'
 
 rules:
-  no-tabs: off
-  indent:
-      - error
-      - tab
-  react/jsx-indent:
-      - error
-      - tab
   semi: off

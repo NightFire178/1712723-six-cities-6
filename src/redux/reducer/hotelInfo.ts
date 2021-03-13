@@ -1,6 +1,6 @@
 // TODO обновление списка отелей при формировании этой хрени
 
-import comments from "../../template/comments"
+import comments from "../../template/comment"
 
 type state = {
 	id: number,
@@ -12,19 +12,29 @@ export type hotelInfo = Array<state>
 
 interface SystemActionTypes {
 	type: string,
-	payload: state
+	payload: state&{id:number, comments:Array<comments>}
 }
 
-const hotelInfo = (state: hotelInfo = [], action: SystemActionTypes): hotelInfo => {
-	switch (action.type) {
+const hotelInfo = (state: hotelInfo = [], {type, payload}: SystemActionTypes): hotelInfo => {
+	let temp
+	switch (type) {
 		case `SET_HOTEL_INFO`: 
-			let temp = state.findIndex(obj => obj.id === action.payload.id)
-			if (temp) {
-				state[temp] = action.payload
+			temp = state.findIndex(obj => obj.id === payload.id)
+			if (temp>=0) {
+				state[temp] = payload
 				return state
 			} else {
-				return [...state, action.payload]
+				return [...state, payload]
 			}
+		case `ADD_COMMENT`:
+			temp = state.findIndex(obj => obj.id === payload.id)
+			if(temp>=0){
+				state[temp].comment = payload.comments
+				return state
+			} else{
+				return state
+			}
+			
 		default:
 			return state
 	}
