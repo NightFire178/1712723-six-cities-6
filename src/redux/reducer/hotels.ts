@@ -1,22 +1,25 @@
 import Hotel from "../../template/hotel"
 
 interface SystemActionTypes {
-	type: string,
-	payload: Array<Hotel>
+  type: string,
+  payload: any
 }
 
-export type hotels = Array<Hotel>
+export type hotelsTS = Array<Hotel>
 
-const initialState: hotels = []
+const initialState: hotelsTS = []
 
-function hotels(state = initialState, action: SystemActionTypes): hotels {
-switch (action.type) {
-		case 'UPPDATE_HOTEL':
-			state = action.payload
-			return state;
-		default:
-			return state;
-	}
+function hotels(state = initialState, action: SystemActionTypes): hotelsTS {
+  switch (action.type) {
+    case 'UPDATE_IS_FAVORITE':
+      state[action.payload.id].is_favorite= action.payload.isFavorite
+      return state
+    case 'UPDATE_HOTEL':
+      state = action.payload
+      return state;
+    default:
+      return state;
+  }
 }
 
 export default hotels

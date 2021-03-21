@@ -3,4 +3,5 @@ export default interface User{
 	name: string,
 	is_pro: boolean,
 	avatar_url: string,
+  email: string
 }

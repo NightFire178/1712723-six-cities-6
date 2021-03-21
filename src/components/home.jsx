@@ -1,58 +1,56 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import Loader from "./block/loader";
-import { useSelector, useDispatch } from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
 import Card from "./block/card";
 import Header from "./block/header";
 import Nav from "./block/nav";
-import PropTypes from "prop-types";
 import Map from "./block/map";
-
+// TODO нет предложений описать код
 const HomeComponents = () => {
   const dispatch = useDispatch()
-  const { city, hotels, load, sortState, sortValueState } = useSelector((state) => ({
+  const {city, hotels, load, sortState} = useSelector((state) => ({
     hotels: state.hotels,
     city: state.appState.cityNow,
     load: state.appState.load,
-    sortState: state.appState.sort.text,
-    sortValueState: state.appState.sort.value
+    sortState: state.appState.sort
   }));
   // state output for user (city)
-  const [renderCityesState, setRenderCityesState] = useState();
+  const [renderHotels, setRenderHotels] = useState();
   // number of places
-  const [placesState, setPlacesState] = useState(0);
+  const [placesS, setPlaces] = useState(0);
   // Open Close sort panel
-  const [sortOpenState, setSortOpenState] = useState(false);
+  const [sortOpenS, setSortOpen] = useState(false);
   // leaflet map
   const [mapS, setSMap] = useState();
-  // SET SITY (user)
-  function setSity(cityes) {
+  // SET CITY (user)
+  function setCity(hotelsArr) {
     let i = 0;
-    setRenderCityesState(
-      cityes.map((obj) => {
-        i++;
-        return <Card key={obj.id} objCard={obj} />;
-      })
+    setRenderHotels(
+        hotelsArr.map((obj) => {
+          i++;
+          return <Card key={obj.id} objCard={obj} cardPlace={`cities`} />;
+        })
     );
     return i;
   }
-  // SORTCITY + SET(user)
-  const sortAndSetCityes = (value, cityes) => {
+  // SORT CITY + SET(user)
+  const sortAndSetHotels = (value, hotelsArr) => {
     let i = 0;
     switch (value) {
-      case 0:
-        i = setSity(cityes);
+      case `Popular`:
+        i = setCity(hotelsArr);
         break;
-      case 1:
-        cityes.sort((a, b) => (a.price > b.price ? 1 : -1));
-        i = setSity(cityes);
+      case `Price: low to high`:
+        hotelsArr.sort((a, b) => (a.price > b.price ? 1 : -1));
+        i = setCity(hotelsArr);
         break;
-      case 2:
-        cityes.sort((a, b) => (a.price > b.price ? -1 : 1));
-        i = setSity(cityes);
+      case `Price: high to low`:
+        hotelsArr.sort((a, b) => (a.price > b.price ? -1 : 1));
+        i = setCity(hotelsArr);
         break;
-      case 3:
-        cityes.sort((a, b) => (a.rating > b.rating ? -1 : 1));
-        i = setSity(cityes);
+      case `Top rated first`:
+        hotelsArr.sort((a, b) => (a.rating > b.rating ? -1 : 1));
+        i = setCity(hotelsArr);
         break;
     }
     return i;
@@ -60,43 +58,43 @@ const HomeComponents = () => {
 
   // SORT + SET CITY(user)
   const clickSort = (evt) => {
-    if (sortOpenState) {
+    if (sortOpenS) {
       if (evt.target.classList.contains(`places__option`)) {
-        dispatch({ type: `SORT_SET`, payload: {text: evt.target.textContent, value:evt.target.value} });
+        dispatch({type: `SORT_SET`, payload: evt.target.textContent});
       }
-      setSortOpenState(!sortOpenState);
+      setSortOpen(!sortOpenS);
     } else if (
-      sortOpenState ||
+      sortOpenS ||
       evt.target.classList.contains(`places__sorting-type`)
     ) {
-      setSortOpenState(!sortOpenState);
+      setSortOpen(!sortOpenS);
     }
   };
   // receiving data(city) from the server, sort by city, sort by userSort, sending to the user
   useEffect(() => {
-    let cityes = hotels.filter((obj) => obj.city.name === city).slice();
-    let i = sortAndSetCityes(sortValueState, cityes);
-    setPlacesState(i);
+    let hotelsArr = hotels.filter((obj) => obj.city.name === city).slice();
+    let i = sortAndSetHotels(sortState, hotelsArr);
+    setPlaces(i);
     if (i <= 0) {
       setSMap(
-        <Map
-          city={{
-            lat: 40.835292,
-            lng: -73.916236,
-            zoom: 10,
-          }}
-        />
+          <Map
+            city={{
+              lat: 40.835292,
+              lng: -73.916236,
+              zoom: 10,
+            }}
+          />
       );
-      setRenderCityesState(<div>В городе {city} нет комнат</div>);
+      setRenderHotels(<div>В городе {city} нет комнат</div>);
     } else {
-      setSMap(<Map hotels={cityes} />);
+      setSMap(<Map hotels={hotelsArr} />);
     }
-  }, [city, hotels, sortValueState]);
+  }, [city, hotels, sortState]);
 
   return load ? (
     <>
       <div onClick={clickSort}>
-        <div style={{ display: `none` }}>
+        <div style={{display: `none`}}>
           <svg xmlns="http://www.w3.org/2000/svg">
             <symbol id="icon-arrow-select" viewBox="0 0 7 4">
               <path
@@ -127,7 +125,7 @@ const HomeComponents = () => {
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
                   <b className="places__found">
-                    {placesState} places to stay in {city}
+                    {placesS} places to stay in {city}
                   </b>
                   <form className="places__sorting" action="#" method="get">
                     <span className="places__sorting-caption">Sort by</span>
@@ -149,7 +147,7 @@ const HomeComponents = () => {
                     </span>
                     <ul
                       className={`places__options places__options--custom ${
-                        sortOpenState && `places__options--opened`
+                        sortOpenS && `places__options--opened`
                       }`}
                     >
                       <li
@@ -187,7 +185,7 @@ const HomeComponents = () => {
                     </ul>
                   </form>
                   <div className="cities__places-list places__list tabs__content">
-                    {renderCityesState ? renderCityesState : <Loader />}
+                    {renderHotels ? renderHotels : <Loader />}
                   </div>
                 </section>
                 <div className="cities__right-section">
@@ -204,10 +202,5 @@ const HomeComponents = () => {
   );
 };
 
-HomeComponents.propTypes = {
-  params: PropTypes.object,
-  match: PropTypes.object,
-  city: PropTypes.string,
-};
 
 export default HomeComponents;
