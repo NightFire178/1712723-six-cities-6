@@ -1,15 +1,10 @@
-interface SystemActionTypes {
-  type: string,
-  payload: Array<number>
-}
+import {TFavorite, favoriteAction, favoriteActionTypes} from "./types/favorite";
 
-export type favoriteTS = Array<number>
+const initialState: TFavorite = []
 
-const initialState: favoriteTS = []
-
-function favorite(state = initialState, action: SystemActionTypes): favoriteTS {
+function favorite(state = initialState, action: favoriteActionTypes): TFavorite {
   switch (action.type) {
-    case 'UPDATE_FAVORITE':
+    case favoriteAction.UPDATE_FAVORITE:
       state = action.payload
       return state;
     default:

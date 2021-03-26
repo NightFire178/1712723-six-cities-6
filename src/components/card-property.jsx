@@ -1,19 +1,18 @@
-import React, {useEffect, useState} from "react";
-import {Redirect} from 'react-router-dom'
+import React, {useEffect} from "react";
 import Header from "./block/header";
 import Map from "./block/map";
-import {useSelector, useDispatch} from "react-redux";
-import hotelInfo from "../redux/thunk/hotelInfo";
+import {useSelector} from "react-redux";
 import Card from "./block/card";
 import Loader from "./block/loader";
 import Comments from "./comments"
-import FavoriteButton from "./block/favoriteButton";
+import FavoriteButton from "./block/favorite-button";
+import useThunk from "../hooks/use-thunk";
 
 // FIXME avatar server url
 const CardProperty = (props) => {
-  const [dataS, setDataS] = useState(false)
-  const cardId = props.match.params.id;
-  const dispatch = useDispatch();
+  let dataS = false
+  const {thunkHotelInfo} = useThunk()
+  const cardId = props.match.params.id;// TODO useMemo
   const {
     cardState, // TODO отдельный селектор с диструкторизацией
     cardNearbyState,
@@ -46,11 +45,13 @@ const CardProperty = (props) => {
     }
   });
   useEffect(() => {
-    dispatch(hotelInfo(cardId, setDataS));
+    thunkHotelInfo(cardId).then((res) => {
+      dataS = res
+    })
     window.scrollTo(0, 0);
   }, [cardId]);
 
-  const starWidth = (rating) => {
+  const starWidth = (rating) => { // вынести useCallback
     let temp = Math.floor(rating);
     return `${(rating - temp) * 10 >= 5 ? temp * 20 + 20 : temp * 20}%`;
   };
@@ -113,7 +114,7 @@ const CardProperty = (props) => {
                   )}
                   <div className="property__name-wrapper">
                     <h1 className="property__name">{cardState.title}</h1>
-                    <FavoriteButton cardId={cardState.id} buttonPlace={`property`} />
+                    <FavoriteButton cardId={cardState.id} buttonPlace={`property`}/>
                   </div>
                   <div className="property__rating rating">
                     <div className="property__stars rating__stars">
@@ -202,8 +203,6 @@ const CardProperty = (props) => {
         </div>
       </div>
     );
-  } else if (dataS) {
-    return (<Redirect to={`/404`}/>)
   } else {
     return <Loader/>;
   }

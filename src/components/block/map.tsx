@@ -1,11 +1,10 @@
 import React, { FC, useEffect, useRef } from "react"
 import leaflet from "leaflet"
-import hotel from '../../template/hotel'
+import hotel from '../../types/hotel'
 import "leaflet/dist/leaflet.css"
 
-// TODO fix comment point
+// TODO fix comment point 	console.log('map');
 const Map: FC<{ hotels: Array<hotel> }> = ({ hotels }) => {
-	console.log('map');
   let city:any = hotels[0].city.location
 	const mapRef: any = useRef();
 	useEffect(() => {

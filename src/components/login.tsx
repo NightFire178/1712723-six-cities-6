@@ -9,14 +9,14 @@ import {useSelector, useDispatch} from 'react-redux'
 import dispatchLogin from '../redux/thunk/login'
 import {storeState} from '../redux/reducer/reducer'
 
-type formObj = {
+type IFormObj = {
   label: string;
   type: string;
   name: string;
   placeholder: string;
 }
 
-const formInput: Array<formObj> = [
+const formInput: Array<IFormObj> = [
   {
     label: `E-mail`,
     type: `email`,

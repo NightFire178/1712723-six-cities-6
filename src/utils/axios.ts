@@ -7,3 +7,8 @@ export default (url: string): Promise<any> => {
 	})
 }
 
+export const API = axios.create({
+  baseURL: process.env.SERVER_URL,
+  withCredentials: true,
+  timeout: 5000
+})

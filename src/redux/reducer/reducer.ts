@@ -1,16 +1,12 @@
 import { combineReducers } from 'redux';
-import hotels, {hotelsTS} from "./hotels"
-import appState, {appStateTS} from "./appStateTS"
-import hotelInfo, {hotelInfoTS} from "./hotelInfo"
-import favorite, {favoriteTS} from "./favorite";
+import hotels from "./hotels"
+import appState from "./app-state"
+import hotelInfo from "./hotel-info"
+import favorite from "./favorite";
 
 // FIXME устрой строгую типизацию  для начало подставь storeState в reducer, и веселись дорогой
 const reducer = combineReducers({hotels, appState, hotelInfo, favorite})
 
-export interface storeState {
-  hotels:hotelsTS,
-  appState: appStateTS,
-  hotelInfo: hotelInfoTS,
-  favorite: favoriteTS
-}
+
+export type StoreType = ReturnType<typeof reducer>
 export default reducer

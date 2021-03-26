@@ -3,14 +3,14 @@ import {useDispatch} from 'react-redux'
 import {useForm} from 'react-hook-form'
 import * as yup from 'yup'
 import {yupResolver} from '@hookform/resolvers/yup'
-import comment from '../template/comment'
-import {postComment} from "../redux/thunk/comments";
+import comment from '../types/comment'
+import {thunkPostComment} from "../redux/thunk/comments";
 
 interface OwnProps {
   cardCommentsState: Array<comment>
-  starWidth: (rating:number)=>(number),
+  starWidth: (rating: number) => (number),
   isAuth: boolean,
-  id:number
+  id: number
 }
 
 type Props = OwnProps;
@@ -22,8 +22,8 @@ const schema = yup.object().shape({
 const comments: FunctionComponent<Props> = ({id, cardCommentsState, starWidth, isAuth}) => {
   const dispatch = useDispatch()
   const {register, handleSubmit, errors, reset} = useForm({resolver: yupResolver(schema)})
-  const onSubmit = (data:any)=>{// TODO data
-    dispatch(postComment(id, data))
+  const onSubmit = (data: any) => {// TODO data
+    dispatch(thunkPostComment(id, data))
     reset()
   }
   return (<section className="property__reviews reviews">
@@ -47,19 +47,13 @@ const comments: FunctionComponent<Props> = ({id, cardCommentsState, starWidth, i
                   alt="Reviews avatar"
                 />
               </div>
-              <span className="reviews__user-name">
-                                {comment.user.name}
-                              </span>
+              <span className="reviews__user-name">{comment.user.name}</span>
             </div>
             <div className="reviews__info">
               <div className="reviews__rating rating">
                 <div className="reviews__stars rating__stars">
-                                  <span
-                                    style={{width: starWidth(comment.rating)}}
-                                  />
-                  <span className="visually-hidden">
-                                    Rating
-                                  </span>
+                                  <span style={{width: starWidth(comment.rating)}}/>
+                  <span className="visually-hidden">Rating</span>
                 </div>
               </div>
               <p className="reviews__text">{comment.comment}</p>
@@ -74,14 +68,13 @@ const comments: FunctionComponent<Props> = ({id, cardCommentsState, starWidth, i
         </React.Fragment>
       ))}
     </ul>
-    {isAuth&&<form
+    {isAuth && <form
       className="reviews__form form"
       onSubmit={handleSubmit(onSubmit)}
     >
       <label
         className="reviews__label form__label"
-        htmlFor="review"
-      >
+        htmlFor="review">
         Your review
       </label>
       <div className="reviews__rating-form form__rating">
@@ -91,18 +84,15 @@ const comments: FunctionComponent<Props> = ({id, cardCommentsState, starWidth, i
           defaultValue={5}
           id="5-stars"
           type="radio"
-          ref={register}
-        />
+          ref={register}/>
         <label
           htmlFor="5-stars"
           className="reviews__rating-label form__rating-label"
-          title="perfect"
-        >
+          title="perfect">
           <svg
             className="form__star-image"
             width={37}
-            height={33}
-          >
+            height={33}>
             <use xlinkHref="#icon-star"/>
           </svg>
         </label>
@@ -112,18 +102,15 @@ const comments: FunctionComponent<Props> = ({id, cardCommentsState, starWidth, i
           defaultValue={4}
           id="4-stars"
           type="radio"
-          ref={register}
-        />
+          ref={register}/>
         <label
           htmlFor="4-stars"
           className="reviews__rating-label form__rating-label"
-          title="good"
-        >
+          title="good">
           <svg
             className="form__star-image"
             width={37}
-            height={33}
-          >
+            height={33}>
             <use xlinkHref="#icon-star"/>
           </svg>
         </label>
@@ -133,18 +120,15 @@ const comments: FunctionComponent<Props> = ({id, cardCommentsState, starWidth, i
           defaultValue={3}
           id="3-stars"
           type="radio"
-          ref={register}
-        />
+          ref={register}/>
         <label
           htmlFor="3-stars"
           className="reviews__rating-label form__rating-label"
-          title="not bad"
-        >
+          title="not bad">
           <svg
             className="form__star-image"
             width={37}
-            height={33}
-          >
+            height={33}>
             <use xlinkHref="#icon-star"/>
           </svg>
         </label>

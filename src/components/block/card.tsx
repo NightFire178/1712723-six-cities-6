@@ -1,56 +1,68 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import hotel from "../../template/hotel"
-import FavoriteButton from "./favoriteButton";
+import hotel from "../../types/hotel"
+import FavoriteButton from "./favorite-button";
 
-interface Card{
+interface Card {
   objCard: hotel,
   cardPlace: string
 }
-interface cardHTML{
-  article:string,
-  imgWrapper:string,
-  img:{
-    height:number,
-    width:number
+
+interface ICardHTML {
+  article: string,
+  imgWrapper: string,
+  img: {
+    height: number,
+    width: number
   },
-  cardInfo:string
+  cardInfo: string
 }
 
+// const placeToCard = {
+//   near: {
+//     article: `cities__place-card place-card`,
+//     imgWrapper: `cities__image-wrapper place-card__image-wrapper`,
+//     img: {
+//       width: 260,
+//       height: 200
+//     },
+//     cardInfo: `place-card__info`
+//   }
+// }
+
+// new map
+
 const Card: React.FC<Card> = ({objCard, cardPlace}) => {
-  let cardHTML:cardHTML = {
+  let cardHTML: ICardHTML = {
     article: `cities__place-card place-card`,
     imgWrapper: `cities__image-wrapper place-card__image-wrapper`,
-    img :{
+    img: {
       width: 260,
       height: 200
     },
-    cardInfo:`place-card__info`
+    cardInfo: `place-card__info`
   };
-  switch(cardPlace){
-    //default value
-    // case `cities`:
-    //   break;
+  switch (cardPlace) {
     case `near`:
       cardHTML = {
         article: `near-places__card place-card`,
         imgWrapper: `near-places__image-wrapper place-card__image-wrapper`,
-        img :{
+        img: {
           width: 260,
           height: 200
         },
-        cardInfo:`place-card__info`
+        cardInfo: `place-card__info`
       }
       break;
     case `favorites`:
       cardHTML = {
         article: `favorites__card place-card`,
         imgWrapper: `favorites__image-wrapper place-card__image-wrapper`,
-        img :{
+        img: {
           width: 150,
           height: 110
         },
-        cardInfo:`favorites__card-info place-card__info`
+        cardInfo: `favorites__card-info place-card__info`
       }
       break;
   }

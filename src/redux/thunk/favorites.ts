@@ -1,18 +1,17 @@
-import axios from '../../utils/axios'
-import {Action} from 'redux'
+import {API} from "../../utils/axios";
 import {ThunkAction} from 'redux-thunk'
-import hotel from '../../template/hotel'
-import {storeState} from '../reducer/reducer'
+import hotel from '../../types/hotel'
+import {StoreType} from '../reducer/reducer'
+import {favoriteAction, favoriteActionTypes} from "../reducer/types/favorite";
 
-export default (): ThunkAction<void, storeState, unknown, Action<string>> => (dispatch) => {
-  axios(`${process.env.SERVER_URL}/favorite`)
-    .catch(() => ({data: false})
-    )
-    .then(({data}: { data: Array<hotel> | boolean }) => {
+export const thunkFavorites = (): ThunkAction<void, StoreType, unknown, favoriteActionTypes> => (dispatch) => {
+  API.get(`/favorite`)
+    .then(({data}: { data: Array<hotel> }) => {
       if (data) {
-        // @ts-ignore
         const arrId = data.map((obj: hotel) => obj.id)
-        dispatch({type: 'UPDATE_FAVORITE', payload: arrId})
+        dispatch({type: favoriteAction.UPDATE_FAVORITE, payload: arrId})
       }
     })
 }
+
+export default thunkFavorites

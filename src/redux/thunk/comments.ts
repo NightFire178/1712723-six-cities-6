@@ -1,35 +1,24 @@
-import axios from 'axios'
-import comment from '../../template/comment'
-import { Action } from 'redux'
+import {API} from "../../utils/axios";
+import comment from '../../types/comment'
 import { ThunkAction } from 'redux-thunk'
-import {storeState} from "../reducer/reducer";
-import userTS from "../../template/user";
+import {StoreType} from "../reducer/reducer";
+import {hotelInfoActionTypes, hotelInfoAction} from "../reducer/types/hotel-info";
 
 
-const comments = (id: number): ThunkAction<void, any, unknown, Action<string>> => (dispatch, getState) => {
-  axios(`${process.env.SERVER_URL}/comments/${id}`, {
-    withCredentials: true,
-    timeout: 5000
-  }).catch(()=>  {
-    return {data: false}
-  })
-    .then(({ data }: { data: Array<comment>|boolean }) => {
-      dispatch({type:`ADD_COMMENT`, payload:{id:id, comments:data}})
+export const thunkGetComments = (id: number): ThunkAction<void, any, unknown, hotelInfoActionTypes> => (dispatch, getState) => {
+ API.get(`/comments/${id}`)
+    .then(({ data }: { data: Array<comment>}) => {
+      dispatch({type:hotelInfoAction.ADD_COMMENT, payload:{id:id, comments:data}})
     })
 }
 
-export default comments
+export default thunkGetComments
 
 
-export const postComment = (id:number, data:any): ThunkAction<void, storeState, unknown, Action<string>> =>// TODO data
+export const thunkPostComment = (id:number, data:any): ThunkAction<void, StoreType, unknown, hotelInfoActionTypes> =>// TODO data
   (dispatch) => {
-    axios.post(`${process.env.SERVER_URL}/comments/${id}`, data, {
-      withCredentials: true,
-      timeout: 5000
-    }).catch(()=> {
-      return {data: false}
-    })
-      .then(({data}: { data: userTS|boolean }) => {
-        dispatch({type:`ADD_COMMENT`, payload:{id:id, comments:data}})
+    API.post(`/comments/${id}`, data)
+      .then(({data:resData}: { data: Array<comment> } ) => {
+        dispatch({type:hotelInfoAction.ADD_COMMENT, payload:{id:id, comments:resData}})
     })
   }

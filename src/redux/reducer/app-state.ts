@@ -1,24 +1,5 @@
-import userTS from '../../template/user'
+import {appStateAction, appStateActionTypes, IAppState} from "./types/app-state"
 
-interface SystemActionTypes {
-  type: string,
-  payload: any
-}
-export  type isAuth = {
-  now: boolean,
-  user: userTS
-}
-
-export type appStateTS = {
-  cityNow: string,
-  isAuth: isAuth,
-  load: boolean,
-  sort: string,
-  error: {
-    message: string,
-    now: boolean
-  }
-}
 const defaultUserData = {
   id: -1,
   name: '',
@@ -26,7 +7,7 @@ const defaultUserData = {
   avatar_url: '',
   email: ''
 }
-const initialState: appStateTS = {
+const initialState: IAppState = {
   cityNow: `Amsterdam`,
   isAuth: {
     now: false,
@@ -40,27 +21,27 @@ const initialState: appStateTS = {
   }
 }
 
-function appState(state = initialState, action: SystemActionTypes): appStateTS {
+function appState(state = initialState, action: appStateActionTypes): IAppState {
   switch (action.type) {
-    case 'SET_ERROR':
+    case appStateAction.SET_ERROR:
       state.error = action.payload
       return state
-    case 'SORT_SET':
+    case appStateAction.SORT_SET:
       state.sort = action.payload
       return state;
-    case 'CITY_SET':
+    case appStateAction.CITY_SET:
       state.cityNow = action.payload
       return state;
-    case 'AUTH_SET':
+    case appStateAction.AUTH_SET:
       state.isAuth = action.payload
       return state;
-    case 'LOG_OUT':
+    case appStateAction.LOG_OUT:
       state.isAuth = {
         now: false,
         user: defaultUserData
       }
       return state;
-    case 'LOAD':
+    case appStateAction.LOAD:
       state.load = action.payload
       return state
     default:

@@ -1,16 +1,16 @@
 import React, {useEffect, FC,} from "react";
-import {useSelector, useDispatch} from "react-redux"
+import useThunk from "../hooks/use-thunk";
+import {useSelector} from "react-redux"
 import {Link} from "react-router-dom"
-import favorites from "../redux/thunk/favorites";
 import cityes from "../data/cityes";
 import Header from "./block/header";
-import hotel from '../template/hotel'
-import {storeState} from "../redux/reducer/reducer";
+import hotel from '../types/hotel'
+import {StoreType} from "../redux/reducer/reducer";
 import Card from "./block/card";
 
 const Favorites: FC = () => {
-  const dispatch = useDispatch()
-  const {hotels, city} = useSelector((state: storeState) => {
+  const {thunkFavorites} = useThunk()
+  const {hotels, city} = useSelector((state: StoreType) => {
     if (state.favorite.length > 0) {
       let citySelector: Array<string> = [];
       // @ts-ignore
@@ -28,7 +28,7 @@ const Favorites: FC = () => {
     }
   })
   useEffect(() => {
-    dispatch(favorites())
+    thunkFavorites()
   }, [])
 
   return (

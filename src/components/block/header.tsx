@@ -2,7 +2,7 @@ import React, {FC} from "react";
 import {Link} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux"
 import {storeState} from "../../redux/reducer/reducer";
-import {isAuth} from "../../redux/reducer/appStateTS";
+import {isAuth} from "../../redux/reducer/app-state";
 import axios from "../../utils/axios";
 
 

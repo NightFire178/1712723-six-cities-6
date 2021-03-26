@@ -1,10 +1,10 @@
 import React, {FunctionComponent} from 'react';
-import {useSelector, useDispatch} from 'react-redux'
-import {storeState} from "../../redux/reducer/reducer";
+import {useDispatch} from 'react-redux'
+import useSelector from '../../hooks/use-selector-type'
 import axios from "axios";
 import favorites from "../../redux/thunk/favorites";
 
-
+// TODO уточнить что с авторизацией надо ли скрывать кнопку или пилить доп функционал
 interface OwnProps {
   cardId: number,
   buttonPlace: string,
@@ -48,7 +48,7 @@ const FavoriteButton: FunctionComponent<Props> = ({cardId, buttonPlace}) => {
       break;
   }
   const dispatch = useDispatch()
-  const {isFavorite, stateIndex} = useSelector((state: storeState) => {
+  const {isFavorite, stateIndex} = useSelector((state) => {
     const stateIndex = state.hotels.findIndex((obj) => +obj.id === +cardId)
     return {
       stateIndex,

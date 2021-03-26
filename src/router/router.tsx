@@ -2,7 +2,7 @@ import React from "react";
 import {BrowserRouter, Route, Switch, Link} from "react-router-dom";
 import Auth from "./auth"
 import Home from "../components/home";
-import CardProperty from "../components/cardProperty"
+import CardProperty from "../components/card-property"
 import Login from "../components/login"
 import Favorites from "../components/favorites"
 

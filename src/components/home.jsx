@@ -12,7 +12,7 @@ const HomeComponents = () => {
     hotels: state.hotels,
     city: state.appState.cityNow,
     load: state.appState.load,
-    sortState: state.appState.sort
+    sortState: state.appState.sort,
   }));
   // state output for user (city)
   const [renderHotels, setRenderHotels] = useState();
@@ -22,36 +22,38 @@ const HomeComponents = () => {
   const [sortOpenS, setSortOpen] = useState(false);
   // leaflet map
   const [mapS, setSMap] = useState();
+
   // SET CITY (user)
   function setCity(hotelsArr) {
     let i = 0;
     setRenderHotels(
-        hotelsArr.map((obj) => {
-          i++;
-          return <Card key={obj.id} objCard={obj} cardPlace={`cities`} />;
-        })
+      hotelsArr.map((obj) => {
+        i++;
+        return <Card key={obj.id} objCard={obj} cardPlace={`cities`}/>;
+      }),
     );
     return i;
   }
-  // SORT CITY + SET(user)
+
+  // SORT CITY + SET(user) // новый тип сортировки функция сортировки масив функци переменная функции и тд
   const sortAndSetHotels = (value, hotelsArr) => {
     let i = 0;
     switch (value) {
-      case `Popular`:
-        i = setCity(hotelsArr);
-        break;
-      case `Price: low to high`:
-        hotelsArr.sort((a, b) => (a.price > b.price ? 1 : -1));
-        i = setCity(hotelsArr);
-        break;
-      case `Price: high to low`:
-        hotelsArr.sort((a, b) => (a.price > b.price ? -1 : 1));
-        i = setCity(hotelsArr);
-        break;
-      case `Top rated first`:
-        hotelsArr.sort((a, b) => (a.rating > b.rating ? -1 : 1));
-        i = setCity(hotelsArr);
-        break;
+    case `Popular`:
+      i = setCity(hotelsArr);
+      break;
+    case `Price: low to high`:
+      hotelsArr.sort((a, b) => (a.price > b.price ? 1 : -1));
+      i = setCity(hotelsArr);
+      break;
+    case `Price: high to low`:
+      hotelsArr.sort((a, b) => (a.price > b.price ? -1 : 1));
+      i = setCity(hotelsArr);
+      break;
+    case `Top rated first`:
+      hotelsArr.sort((a, b) => (a.rating > b.rating ? -1 : 1));
+      i = setCity(hotelsArr);
+      break;
     }
     return i;
   };
@@ -71,27 +73,29 @@ const HomeComponents = () => {
     }
   };
   // receiving data(city) from the server, sort by city, sort by userSort, sending to the user
-  useEffect(() => {
+  useEffect(() => { // TODO отдельно ментор
     let hotelsArr = hotels.filter((obj) => obj.city.name === city).slice();
     let i = sortAndSetHotels(sortState, hotelsArr);
     setPlaces(i);
     if (i <= 0) {
       setSMap(
-          <Map
-            city={{
-              lat: 40.835292,
-              lng: -73.916236,
-              zoom: 10,
-            }}
-          />
+        <Map
+          city={{
+            lat: 40.835292,
+            lng: -73.916236,
+            zoom: 10,
+          }}
+        />,
       );
       setRenderHotels(<div>В городе {city} нет комнат</div>);
     } else {
-      setSMap(<Map hotels={hotelsArr} />);
+      setSMap(<Map hotels={hotelsArr}/>);
     }
   }, [city, hotels, sortState]);
-
-  return load ? (
+  if (!load) {
+    return <Loader/>
+  }
+  return (
     <>
       <div onClick={clickSort}>
         <div style={{display: `none`}}>
@@ -104,7 +108,8 @@ const HomeComponents = () => {
               />
             </symbol>
             <symbol id="icon-bookmark" viewBox="0 0 17 18">
-              <path d="M3.993 2.185l.017-.092V2c0-.554.449-1 .99-1h10c.522 0 .957.41.997.923l-2.736 14.59-4.814-2.407-.39-.195-.408.153L1.31 16.44 3.993 2.185z" />
+              <path
+                d="M3.993 2.185l.017-.092V2c0-.554.449-1 .99-1h10c.522 0 .957.41.997.923l-2.736 14.59-4.814-2.407-.39-.195-.408.153L1.31 16.44 3.993 2.185z"/>
             </symbol>
             <symbol id="icon-star" viewBox="0 0 13 12">
               <path
@@ -116,10 +121,10 @@ const HomeComponents = () => {
           </svg>
         </div>
         <div className="page page--gray page--main">
-          <Header isMain={true} />
+          <Header isMain={true}/>
           <main className="page__main page__main--index">
             <h1 className="visually-hidden">Cities</h1>
-            <Nav />
+            <Nav/>
             <div className="cities">
               <div className="cities__places-container container">
                 <section className="cities__places places">
@@ -141,7 +146,7 @@ const HomeComponents = () => {
                           width={7}
                           height={4}
                         >
-                          <use xlinkHref="#icon-arrow-select" />
+                          <use xlinkHref="#icon-arrow-select"/>
                         </svg>
                       </div>
                     </span>
@@ -185,7 +190,7 @@ const HomeComponents = () => {
                     </ul>
                   </form>
                   <div className="cities__places-list places__list tabs__content">
-                    {renderHotels ? renderHotels : <Loader />}
+                    {renderHotels ? renderHotels : <Loader/>}
                   </div>
                 </section>
                 <div className="cities__right-section">
@@ -197,9 +202,7 @@ const HomeComponents = () => {
         </div>
       </div>
     </>
-  ) : (
-    <Loader />
-  );
+  )
 };
 
 
