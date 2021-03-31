@@ -1,13 +1,15 @@
-import React, {Fragment} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import PropTypes from "prop-types";
+import React, {Fragment, FC} from "react";
+import {useDispatch} from "react-redux";
 import cityes from "../../data/cityes";
+import {appStateAction} from "../../redux/reducer/types/app-state";
+import appStateSelection from "../../redux/selectors/app-state";
 
-const Nav = () => {
-  const city = useSelector((state) => state.appState.cityNow);
+const Nav: FC = () => {
+  const city = appStateSelection.cityNow()
   const dispatch = useDispatch();
-  const click = (evt) => {
-    dispatch({type: `CITY_SET`, payload: evt.target.textContent});
+  const click = (evt:React.MouseEvent) => { // TODO ментор
+    const temp = evt.target as HTMLElement
+    dispatch({type: appStateAction.CITY_SET, payload: temp.textContent});
   };
   return (
     <>
@@ -36,18 +38,6 @@ const Nav = () => {
   );
 };
 
-Nav.propTypes = {
-  city: PropTypes.string,
-};
+
 
 export default Nav;
-// connect(
-// 	(state) => ({
-// 		city: state.appState.cityNow,
-// 	}),
-// 	(dispatch) => ({
-// 		setCityNow: (citySort) => {
-// 			dispatch({ type: `CITY_SET`, payload: citySort });
-// 		},
-// 	})
-// )(Nav);

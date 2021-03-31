@@ -1,18 +1,18 @@
 import React, {FunctionComponent} from 'react';
-import {useSelector} from "react-redux"
 import {Route, Redirect, RouteProps} from 'react-router-dom'
-import {storeState} from "../redux/reducer/reducer";
+import appStateSelection from "../redux/selectors/app-state";
 
 interface AuthRoute extends RouteProps {
-  components: any
+  components: FunctionComponent
 }
 
 const auth: FunctionComponent<AuthRoute> = ({components: Component, ...rest}) => {
-  const auth: boolean = useSelector((state: storeState) => state.appState.isAuth.now)
+  const auth: boolean = appStateSelection.isAuth().now
   return <Route
     {...rest}
     render={
-      (props: any) => (auth ? <Component{...props}/> : <Redirect to={'/login'}/>)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (props: React.ComponentProps<any>) => (auth ? <Component{...props}/> : <Redirect to={'/login'}/>)
     }/>
 }
 

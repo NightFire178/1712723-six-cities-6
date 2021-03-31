@@ -1,7 +1,0 @@
-{
-type: 'AUTH_SET',
-payload: {
-  now: true,
-  email: 'test@mail.ru'
-}
-}

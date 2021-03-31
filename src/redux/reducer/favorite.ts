@@ -5,8 +5,9 @@ const initialState: TFavorite = []
 function favorite(state = initialState, action: favoriteActionTypes): TFavorite {
   switch (action.type) {
     case favoriteAction.UPDATE_FAVORITE:
-      state = action.payload
-      return state;
+      return action.payload;
+    case favoriteAction.DEFAULT_FAVORITE:
+      return initialState
     default:
       return state;
   }

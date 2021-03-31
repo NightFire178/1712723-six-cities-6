@@ -2,10 +2,13 @@ import React from "react";
 import {Link} from "react-router-dom";
 import hotel from "../../types/hotel"
 import FavoriteButton from "./favorite-button";
+import starWidthFunction from "../../utils/star-width"
+
 
 interface Card {
   objCard: hotel,
-  cardPlace: string
+  cardPlace: string,
+  setActiveId?: React.Dispatch<React.SetStateAction<number>>
 }
 
 interface ICardHTML {
@@ -18,22 +21,8 @@ interface ICardHTML {
   cardInfo: string
 }
 
-// const placeToCard = {
-//   near: {
-//     article: `cities__place-card place-card`,
-//     imgWrapper: `cities__image-wrapper place-card__image-wrapper`,
-//     img: {
-//       width: 260,
-//       height: 200
-//     },
-//     cardInfo: `place-card__info`
-//   }
-// }
-
-// new map
-
-const Card: React.FC<Card> = ({objCard, cardPlace}) => {
-  let cardHTML: ICardHTML = {
+const cardStylePlace = new Map([
+  [`cities`, {
     article: `cities__place-card place-card`,
     imgWrapper: `cities__image-wrapper place-card__image-wrapper`,
     img: {
@@ -41,30 +30,33 @@ const Card: React.FC<Card> = ({objCard, cardPlace}) => {
       height: 200
     },
     cardInfo: `place-card__info`
-  };
-  switch (cardPlace) {
-    case `near`:
-      cardHTML = {
-        article: `near-places__card place-card`,
-        imgWrapper: `near-places__image-wrapper place-card__image-wrapper`,
-        img: {
-          width: 260,
-          height: 200
-        },
-        cardInfo: `place-card__info`
-      }
-      break;
-    case `favorites`:
-      cardHTML = {
-        article: `favorites__card place-card`,
-        imgWrapper: `favorites__image-wrapper place-card__image-wrapper`,
-        img: {
-          width: 150,
-          height: 110
-        },
-        cardInfo: `favorites__card-info place-card__info`
-      }
-      break;
+  }],
+  [`near`, {
+    article: `near-places__card place-card`,
+    imgWrapper: `near-places__image-wrapper place-card__image-wrapper`,
+    img: {
+      width: 260,
+      height: 200
+    },
+    cardInfo: `place-card__info`
+  }],
+  [
+    `favorites`, {
+    article: `favorites__card place-card`,
+    imgWrapper: `favorites__image-wrapper place-card__image-wrapper`,
+    img: {
+      width: 150,
+      height: 110
+    },
+    cardInfo: `favorites__card-info place-card__info`
+  }
+  ]
+])
+
+const Card: React.FC<Card> = ({objCard, cardPlace, setActiveId}) => {
+  const cardHTML:ICardHTML|undefined = cardStylePlace.get(cardPlace)
+  if(!cardHTML){ // TODO dev if
+    throw `card.tsx error cardPlace`
   }
   const {
     id,
@@ -75,15 +67,22 @@ const Card: React.FC<Card> = ({objCard, cardPlace}) => {
     title,
     preview_image: previewImage,
   } = objCard;
-
-  let starWidth;
-  {
-    let temp = Math.floor(rating);
-    starWidth = `${(rating - temp) * 10 >= 5 ? temp * 20 + 20 : temp * 20}%`;
+  const handleActive = () =>{
+    if(setActiveId){
+      setActiveId(+objCard.id)
+    }
   }
+  const handleInActive = () =>{
+    if(setActiveId) {
+      setActiveId(-1)
+    }
+  }
+  const starWidth = starWidthFunction(rating)
   return (
     <>
       <article
+        onMouseEnter={handleActive}
+        onMouseLeave={handleInActive}
         className={cardHTML.article}
       >
         {premium && (

@@ -1,24 +1,12 @@
 import React, {FC} from "react";
 import {Link} from "react-router-dom";
-import {useSelector, useDispatch} from "react-redux"
-import {storeState} from "../../redux/reducer/reducer";
-import {isAuth} from "../../redux/reducer/app-state";
-import axios from "../../utils/axios";
-
+import thunkDispatch  from "../../hooks/use-thunk"
+import appStateSelection from "../../redux/selectors/app-state";
 
 
 const Header: FC<{ isMain?: boolean }> = ({isMain = false}) => {
-  const {now, user}: isAuth = useSelector((state: storeState) => ({
-    now: state.appState.isAuth.now,
-    user: state.appState.isAuth.user
-  }))
-  const dispatch = useDispatch();
-  const logOut = () => {
-    axios(`${process.env.SERVER_URL}/logout`).then((res) => {
-      console.log(res.data)
-      dispatch({type: "LOG_OUT"})
-    })
-  }
+  const {thunkLogOut:handleLogOut} = thunkDispatch()
+  const {now, user} = appStateSelection.isAuth()
 
   return (
     <>
@@ -60,22 +48,17 @@ const Header: FC<{ isMain?: boolean }> = ({isMain = false}) => {
                     </div>
                   </li>
                   <li className="header__nav-item user">
-                    <div className="header__nav-link header__nav-link--profile" style={{pointerEvents:"none"}}>
-                      <span className="header__user-name user__name">
-                          {user.name}
-                        </span>
-                    </div>
-                  </li>
-                  <li className="header__nav-item user"  style={{marginLeft: "10px"}}>
                     <Link to="/favorites">
                       <div className="header__nav-link header__nav-link--profile">
-                        <span className="header__login">favorites</span>
+                      <span className="header__user-name user__name">
+                          {user.email}
+                        </span>
                       </div>
                     </Link>
                   </li>
 
                   <li className="header__nav-item user" style={{marginLeft: "10px"}}>
-                    <a className="header__nav-link header__nav-link--profile" onClick={logOut}>
+                    <a className="header__nav-link header__nav-link--profile" onClick={handleLogOut}>
                       <div className="header__nav-link header__nav-link--profile">
                         <span className="header__login">logout</span>
                       </div>

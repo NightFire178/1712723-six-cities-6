@@ -1,24 +1,31 @@
 import {API} from "../../utils/axios";
-import comment from '../../types/comment'
-import { ThunkAction } from 'redux-thunk'
+import IComment, {IPostComment} from '../../types/comment'
+import {ThunkAction} from 'redux-thunk'
 import {StoreType} from "../reducer/reducer";
 import {hotelInfoActionTypes, hotelInfoAction} from "../reducer/types/hotel-info";
+import ErrorMessage from '../../utils/error-message'
 
 
-export const thunkGetComments = (id: number): ThunkAction<void, any, unknown, hotelInfoActionTypes> => (dispatch, getState) => {
- API.get(`/comments/${id}`)
-    .then(({ data }: { data: Array<comment>}) => {
-      dispatch({type:hotelInfoAction.ADD_COMMENT, payload:{id:id, comments:data}})
-    })
-}
+export const thunkGetComments = (id: number): ThunkAction<void, any, unknown, hotelInfoActionTypes> =>
+  async (dispatch) => {
+    try {
+      const {data: comments}: { data: Array<IComment> } = await API.get(`/comments/${id}`)
+      dispatch({type: hotelInfoAction.ADD_COMMENT, payload: {id: id, comments}})
+    } catch (err) {
+      await ErrorMessage()
+    }
+  }
 
 export default thunkGetComments
 
-
-export const thunkPostComment = (id:number, data:any): ThunkAction<void, StoreType, unknown, hotelInfoActionTypes> =>// TODO data
-  (dispatch) => {
-    API.post(`/comments/${id}`, data)
-      .then(({data:resData}: { data: Array<comment> } ) => {
-        dispatch({type:hotelInfoAction.ADD_COMMENT, payload:{id:id, comments:resData}})
-    })
+export const thunkPostComment = (id: number, postComment: IPostComment): ThunkAction<Promise<boolean>, StoreType, unknown, hotelInfoActionTypes> =>
+  async (dispatch) => {
+    try{
+      const {data: comments}: { data: Array<IComment> } = await API.post(`/comments/${id}`, postComment)
+      dispatch({type: hotelInfoAction.ADD_COMMENT, payload: {id: id, comments}})
+      return true
+    } catch (err){
+      await ErrorMessage(`error post comment`)
+      return false
+    }
   }

@@ -1,36 +1,23 @@
-import React, {useEffect, FC,} from "react";
+import React, {useEffect, FC} from "react";
 import useThunk from "../hooks/use-thunk";
-import {useSelector} from "react-redux"
 import {Link} from "react-router-dom"
-import cityes from "../data/cityes";
 import Header from "./block/header";
-import hotel from '../types/hotel'
-import {StoreType} from "../redux/reducer/reducer";
 import Card from "./block/card";
+import favoriteSelection from "../redux/selectors/favorite";
+import Loader from "./block/loader";
+
 
 const Favorites: FC = () => {
   const {thunkFavorites} = useThunk()
-  const {hotels, city} = useSelector((state: StoreType) => {
-    if (state.favorite.length > 0) {
-      let citySelector: Array<string> = [];
-      // @ts-ignore
-      const hotelsSelector: Array<hotel> = state.favorite.map((id) => (state.hotels.find((obj) => +obj.id === id)))
-      if (hotelsSelector.length > 0) {
-        cityes.forEach(value => {
-          if (hotelsSelector.findIndex(obj => obj.city.name === value) >= 0) {
-            citySelector.push(value)
-          }
-        })
-      }
-      return {hotels: hotelsSelector, city: citySelector}
-    } else {
-      return {hotels: undefined, city: undefined}
-    }
-  })
+  const hotelsFavorite = favoriteSelection.hotelsFavorite()
   useEffect(() => {
     thunkFavorites()
   }, [])
+  if(hotelsFavorite === undefined){
+    return (<Loader/>)
+  }
 
+  const {favoriteHotels:hotels, nameCity:city} = hotelsFavorite
   return (
     <>
       <div>
@@ -58,7 +45,7 @@ const Favorites: FC = () => {
         </div>
         <div className="page">
           <Header/>
-          <main className="page__main page__main--favorites">
+          {hotels?.length?<main className="page__main page__main--favorites">
             <div className="page__favorites-container container">
               <section className="favorites">
                 <h1 className="favorites__title">Saved listing</h1>
@@ -82,7 +69,19 @@ const Favorites: FC = () => {
                 </ul>
               </section>
             </div>
-          </main>
+          </main>:
+            <main className="page__main page__main--favorites page__main--favorites-empty">
+              <div className="page__favorites-container container">
+                <section className="favorites favorites--empty">
+                  <h1 className="visually-hidden">Favorites (empty)</h1>
+                  <div className="favorites__status-wrapper">
+                    <b className="favorites__status">Nothing yet saved.</b>
+                    <p className="favorites__status-description">Save properties to narrow down search or plan your future trips.</p>
+                  </div>
+                </section>
+              </div>
+            </main>
+          }
           <footer className="footer container">
             <Link to={'/'}>
               <div className="footer__logo-link">
