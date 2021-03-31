@@ -1,6 +1,6 @@
 import React from "react";
 
-const Loader = () => (
+const Loader: React.FC = () => (
   <>
     <div className="cssload-loader-block">
       <div className="cssload-loader">

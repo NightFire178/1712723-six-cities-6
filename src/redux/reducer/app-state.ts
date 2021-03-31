@@ -8,7 +8,7 @@ const defaultUserData = {
   email: ''
 }
 const initialState: IAppState = {
-  cityNow: `Amsterdam`,
+  cityNow: `Paris`,
   isAuth: {
     now: false,
     user: defaultUserData
@@ -24,26 +24,22 @@ const initialState: IAppState = {
 function appState(state = initialState, action: appStateActionTypes): IAppState {
   switch (action.type) {
     case appStateAction.SET_ERROR:
-      state.error = action.payload
-      return state
+      return {...state, error: action.payload}
     case appStateAction.SORT_SET:
-      state.sort = action.payload
-      return state;
+      return {...state, sort: action.payload}
     case appStateAction.CITY_SET:
-      state.cityNow = action.payload
-      return state;
+      return {...state, cityNow: action.payload}
     case appStateAction.AUTH_SET:
-      state.isAuth = action.payload
-      return state;
+      return {...state, isAuth: action.payload}
     case appStateAction.LOG_OUT:
-      state.isAuth = {
-        now: false,
-        user: defaultUserData
-      }
-      return state;
+      return {
+        ...state, isAuth: {
+          now: false,
+          user: defaultUserData
+        }
+      };
     case appStateAction.LOAD:
-      state.load = action.payload
-      return state
+      return {...state, load:action.payload}
     default:
       return state;
   }

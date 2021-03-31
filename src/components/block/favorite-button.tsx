@@ -1,10 +1,9 @@
-import React, {FunctionComponent} from 'react';
-import {useDispatch} from 'react-redux'
-import useSelector from '../../hooks/use-selector-type'
-import axios from "axios";
-import favorites from "../../redux/thunk/favorites";
+import React, {FunctionComponent, useState} from 'react';
+import {Redirect} from "react-router-dom"
+import useThunk from "../../hooks/use-thunk";
+import appStateSelection from "../../redux/selectors/app-state";
+import hotelsSelection from "../../redux/selectors/hotels";
 
-// TODO уточнить что с авторизацией надо ли скрывать кнопку или пилить доп функционал
 interface OwnProps {
   cardId: number,
   buttonPlace: string,
@@ -22,8 +21,8 @@ interface buttonHTML {
 
 type Props = OwnProps;
 
-const FavoriteButton: FunctionComponent<Props> = ({cardId, buttonPlace}) => {
-  let buttonHTML: buttonHTML = {
+const placeMap = new Map([
+  [`card`, {
     classActive: `place-card__bookmark-button place-card__bookmark-button--active button`,
     classNoActive: `place-card__bookmark-button button`,
     size: {
@@ -31,47 +30,37 @@ const FavoriteButton: FunctionComponent<Props> = ({cardId, buttonPlace}) => {
       width: 18
     },
     classIcon: "place-card__bookmark-icon"
+  }],
+  [`property`, {
+    classActive: `property__bookmark-button--active property__bookmark-button button`,
+    classNoActive: `property__bookmark-button button`,
+    size: {
+      height: 30,
+      width: 31
+    },
+    classIcon: `property__bookmark-icon`,
+  }]
+])
+
+const FavoriteButton: FunctionComponent<Props> = ({cardId, buttonPlace}) => {
+  const [redirectLogin, setRedirectLogin] = useState(false)
+  const auth = appStateSelection.isAuth()
+  const isFavorite = hotelsSelection.hotelFavorites(+cardId)
+  const {thunkButtonFavorites} = useThunk()
+  const buttonHTML: buttonHTML | undefined = placeMap.get(buttonPlace)
+  if (!buttonHTML) {
+    throw `error  buttonPlace favoriteButton` // TODO dev
   }
-  switch (buttonPlace) {
-    // case `card`:default
-    //   break;
-    case `property`:
-      buttonHTML = {
-        classActive: `property__bookmark-button--active property__bookmark-button button`,
-        classNoActive: `property__bookmark-button button`,
-        size: {
-          height: 30,
-          width: 31
-        },
-        classIcon: `property__bookmark-icon`,
-      }
-      break;
+
+  if (redirectLogin) {
+    return <Redirect to={"/login"}/>
   }
-  const dispatch = useDispatch()
-  const {isFavorite, stateIndex} = useSelector((state) => {
-    const stateIndex = state.hotels.findIndex((obj) => +obj.id === +cardId)
-    return {
-      stateIndex,
-      isFavorite: state.hotels[stateIndex].is_favorite
+  const handleButtonClick = () => {
+    if(auth.now){
+      thunkButtonFavorites(+cardId)
+    } else{
+      setRedirectLogin(true)
     }
-  })
-  const buttonClick = () => {
-    axios.post(`${process.env.SERVER_URL}/favorite/${cardId}/${+!isFavorite}`, {}, {
-      withCredentials: true,
-      timeout: 5000
-    })
-      .catch(() => ({data: false}))
-      .then(({data}) => {
-        if (data) {
-          dispatch(favorites())
-          dispatch({
-            type: 'UPDATE_IS_FAVORITE', payload: {
-              isFavorite: !isFavorite,
-              id: stateIndex
-            }
-          })
-        }
-      })
   }
   return (<button
     className={
@@ -80,7 +69,7 @@ const FavoriteButton: FunctionComponent<Props> = ({cardId, buttonPlace}) => {
         : buttonHTML.classNoActive
     }
     type="button"
-    onClick={buttonClick}
+    onClick={handleButtonClick}
   >
     <svg
       className={buttonHTML.classIcon}

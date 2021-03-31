@@ -6,48 +6,60 @@ import thunkGetComments from './comments'
 import {API} from "../../utils/axios";
 import {hotelInfoAction, hotelInfoActionTypes} from "../reducer/types/hotel-info";
 import {hotelsAction, hotelsActionTypes} from "../reducer/types/hotels";
+import ErrorMessage from '../../utils/error-message'
 
-export const thunkHotelInfo = (id: number): ThunkAction<Promise<boolean>, StoreType, unknown, hotelsActionTypes | hotelInfoActionTypes> => async (dispatch, getState) => {
+export const thunkHotelInfo = (id: number): ThunkAction<Promise<number>, StoreType, unknown, hotelsActionTypes | hotelInfoActionTypes> => async (dispatch, getState) => {
   const state = getState()
-  let rtn = false;
   if (state.hotelInfo.findIndex(obj => obj.id === id) < 0) {
-    let comment: Array<comment> = [], nearby: Array<number> = [];
-    let h, c, n;
-    try {
-      h = API.get(`/hotels/${id}`)
-        .then(({data}: { data: hotel }) => {
-          if (state.appState.load) {
-            dispatch({type: hotelsAction.UP_DATE_ONE_HOTEL, payload: data})
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      // TODO me
+    const {data:hotel, status}:{ data: hotel, status:number } = await API.get(`/hotels/${id}`)
+        .catch((err)=>{
+          if(err.response){
+            return {
+              data:undefined,
+              status: 204
+            }
+          } else {
+            ErrorMessage()
+            return {
+              data:undefined,
+              status: 404
+            }
           }
         })
-      c = API.get(`/comments/${id}`)
-        .then(({data}: { data: Array<comment> }) => {
-          if (data)
-            comment = data;
+    try {
+      if(status===200){
+        const [{data: comment}, {data: nearby}]:
+          [{ data: Array<comment> }, { data: Array<hotel> }] =
+          await Promise.all([
+            API.get(`/comments/${id}`),
+            API.get(`/hotels/${id}/nearby`)
+          ])
+        const nearbyID = [nearby[0].id, nearby[1].id, nearby[2].id]
+        dispatch({type: hotelsAction.UP_DATE_ONE_HOTEL, payload: hotel})
+        dispatch({
+          type: hotelInfoAction.SET_HOTEL_INFO,
+          payload: {
+            id,
+            nearbyID,
+            comment,
+          },
         })
-
-      n = API.get(`/hotels/${id}/nearby`)
-        .then(({data}: { data: Array<hotel> }) => {
-          if (data)
-            nearby = [data[0].id, data[1].id, data[2].id]
-        })
-      await Promise.all([h, c, n])
-      dispatch({
-        type: hotelInfoAction.SET_HOTEL_INFO, payload: {
-          id,
-          nearbyID: nearby,
-          comment
-        }
-      })
-    } catch {
-      console.log("catch")
-      rtn = true
+      } else if(status===204) {
+        return status
+      } else if(status===404){
+        return status
+      }
+    } catch (e){
+      await  ErrorMessage()
+      return 404
     }
-
   } else {
     dispatch(thunkGetComments(id))
   }
-  return rtn
+  return 200
 }
 
 export default thunkHotelInfo

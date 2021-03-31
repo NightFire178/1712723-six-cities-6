@@ -8,13 +8,12 @@ function hotels(state = initialState, action: hotelsActionTypes): THotels {
       state[action.payload.id].is_favorite = action.payload.isFavorite
       return state
     case hotelsAction.UP_DATE_HOTELS:
-      state = action.payload
-      return state;
+      return action.payload;
     case hotelsAction.UP_DATE_ONE_HOTEL:
-      let temp = state.findIndex(obj => obj.id === action.payload.id)
-      if (temp >= 0 && JSON.stringify(state[temp]) !== JSON.stringify(action.payload)) {
-        state[temp] = action.payload
-      }else if (temp<0){
+      const tempIndex = state.findIndex(obj => obj.id === action.payload.id)
+      if (tempIndex >= 0 && JSON.stringify(state[tempIndex]) !== JSON.stringify(action.payload)) {
+        state[tempIndex] = action.payload
+      }else if (tempIndex<0){
         return [...state, action.payload]
       }
       return state

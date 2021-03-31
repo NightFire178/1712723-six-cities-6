@@ -4,10 +4,11 @@ env:
   commonjs: true
 
 
-extends: ['htmlacademy/es6', 'plugin:react/recommended']
+extends: [ "plugin:react/recommended", "plugin:@typescript-eslint/recommended"]
 globals:
   process: true
 
+parser: "@typescript-eslint/parser"
 parserOptions:
   ecmaFeatures:
     jsx: true
@@ -21,4 +22,5 @@ settings:
     version: '16'
 
 rules:
+  react/prop-types: 0
   semi: off

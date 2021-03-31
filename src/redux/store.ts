@@ -5,6 +5,7 @@ import thunk from "redux-thunk"
 import hotelsDownLoad from "./thunk/hotels-up-date"
 import {thunkGetLogin} from "./thunk/login";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const store: any = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
 store.dispatch(thunkGetLogin())
 store.dispatch(hotelsDownLoad())

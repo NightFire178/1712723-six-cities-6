@@ -7,7 +7,7 @@ import * as yup from 'yup'
 import {yupResolver} from '@hookform/resolvers/yup'
 import {useSelector, useDispatch} from 'react-redux'
 import dispatchLogin from '../redux/thunk/login'
-import {storeState} from '../redux/reducer/reducer'
+import {StoreType} from '../redux/reducer/reducer'
 
 type IFormObj = {
   label: string;
@@ -31,13 +31,13 @@ const formInput: Array<IFormObj> = [
 ]
 const schema = yup.object().shape({
   email: yup.string().required().email(),
-  password: yup.string().required().min(4).max(20)
+  password: yup.string().required().min(1)
 })
 
 const Login = () => {
   const {register, handleSubmit, errors} = useForm({resolver: yupResolver(schema)})
   const dispatch = useDispatch();
-  const auth = useSelector((state: storeState) => (state.appState.isAuth.now))
+  const auth = useSelector((state: StoreType) => (state.appState.isAuth.now))
   const onSubmit = (data: { email: string, password: string }) => {
     dispatch(dispatchLogin(data))
   }

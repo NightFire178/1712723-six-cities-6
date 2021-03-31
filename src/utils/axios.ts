@@ -1,5 +1,7 @@
 import axios from "axios";
 
+// TODO mentor
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default (url: string): Promise<any> => {
 	return axios(url, {
 		withCredentials: true,
