@@ -1,6 +1,6 @@
 import React from "react"
 import ReactDom from "react-dom"
-import Router from "./router"
+import Router from "./router/router"
 import { Provider } from "react-redux"
 import store from "./redux/store"
 

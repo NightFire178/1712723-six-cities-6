@@ -1,41 +1,31 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import Header from "./block/header";
 import Map from "./block/map";
-import { useSelector, useDispatch } from "react-redux";
-import hotelInfo from "../redux/thunk/hotelInfo";
+import {useSelector} from "react-redux";
 import Card from "./block/card";
 import Loader from "./block/loader";
+import Comments from "./comments"
+import FavoriteButton from "./block/favorite-button";
+import useThunk from "../hooks/use-thunk";
 
 // FIXME avatar server url
 const CardProperty = (props) => {
-  const monthNames = [
-    `January`,
-    `February`,
-    `March`,
-    `April`,
-    `May`,
-    `June`,
-    `July`,
-    `August`,
-    `September`,
-    `October`,
-    `November`,
-    `December`,
-  ];
-  const cardId = props.match.params.id;
-  const dispatch = useDispatch();
+  let dataS = false
+  const {thunkHotelInfo} = useThunk()
+  const cardId = props.match.params.id;// TODO useMemo
   const {
-    cardState,
+    cardState, // TODO отдельный селектор с диструкторизацией
     cardNearbyState,
     cardCommentsState,
     dataState,
+    isAuth,
   } = useSelector((state) => {
     if (
       state.hotelInfo.findIndex((obj) => obj.id === cardId) >= 0 &&
       state.appState.load
     ) {
       // eslint-disable-next-line eqeqeq
-      const find = (array, id = cardId) => array.find((obj) => obj.id == id);
+      const find = (array, id = cardId) => array.find((obj) => +obj.id === +id);
       const hotelInf = find(state.hotelInfo);
       const card = find(state.hotels);
       const nearby = [
@@ -44,28 +34,31 @@ const CardProperty = (props) => {
         find(state.hotels, hotelInf.nearbyID[2]),
       ];
       return {
+        isAuth: state.appState.isAuth,
         cardState: card,
         cardNearbyState: nearby,
         cardCommentsState: hotelInf.comment,
         dataState: true,
       };
     } else {
-      return { dataState: false };
+      return {dataState: false};
     }
   });
   useEffect(() => {
-    dispatch(hotelInfo(cardId));
+    thunkHotelInfo(cardId).then((res) => {
+      dataS = res
+    })
     window.scrollTo(0, 0);
   }, [cardId]);
 
-  const starWidth = (rating) => {
+  const starWidth = (rating) => { // вынести useCallback
     let temp = Math.floor(rating);
     return `${(rating - temp) * 10 >= 5 ? temp * 20 + 20 : temp * 20}%`;
   };
-  if (dataState) {
+  if (dataState && !dataS) {
     return (
       <div>
-        <div style={{ display: `none` }}>
+        <div style={{display: `none`}}>
           <svg xmlns="http://www.w3.org/2000/svg">
             <symbol id="icon-arrow-select" viewBox="0 0 7 4">
               <path
@@ -75,7 +68,8 @@ const CardProperty = (props) => {
               />
             </symbol>
             <symbol id="icon-bookmark" viewBox="0 0 17 18">
-              <path d="M3.993 2.185l.017-.092V2c0-.554.449-1 .99-1h10c.522 0 .957.41.997.923l-2.736 14.59-4.814-2.407-.39-.195-.408.153L1.31 16.44 3.993 2.185z" />
+              <path
+                d="M3.993 2.185l.017-.092V2c0-.554.449-1 .99-1h10c.522 0 .957.41.997.923l-2.736 14.59-4.814-2.407-.39-.195-.408.153L1.31 16.44 3.993 2.185z"/>
             </symbol>
             <symbol id="icon-star" viewBox="0 0 13 12">
               <path
@@ -87,7 +81,7 @@ const CardProperty = (props) => {
           </svg>
         </div>
         <div className="page">
-          <Header />
+          <Header/>
           <main className="page__main page__main--property">
             <section className="property">
               <div className="property__gallery-container container">
@@ -120,23 +114,11 @@ const CardProperty = (props) => {
                   )}
                   <div className="property__name-wrapper">
                     <h1 className="property__name">{cardState.title}</h1>
-                    <button
-                      className="property__bookmark-button button"
-                      type="button"
-                    >
-                      <svg
-                        className="property__bookmark-icon"
-                        width={31}
-                        height={33}
-                      >
-                        <use xlinkHref="#icon-bookmark" />
-                      </svg>
-                      <span className="visually-hidden">To bookmarks</span>
-                    </button>
+                    <FavoriteButton cardId={cardState.id} buttonPlace={`property`}/>
                   </div>
                   <div className="property__rating rating">
                     <div className="property__stars rating__stars">
-                      <span style={{ width: starWidth(cardState.rating) }} />
+                      <span style={{width: starWidth(cardState.rating)}}/>
                       <span className="visually-hidden">Rating</span>
                     </div>
                     <span className="property__rating-value rating__value">
@@ -192,204 +174,17 @@ const CardProperty = (props) => {
                       ))}
                     </div>
                   </div>
-                  <section className="property__reviews reviews">
-                    <h2 className="reviews__title">
-                      Reviews ·
-                      <span className="reviews__amount">
-                        {cardCommentsState.length}
-                      </span>
-                    </h2>
-                    <ul className="reviews__list">
-                      {cardCommentsState.map((comment) => (
-                        <React.Fragment key={comment.id}>
-                          <li className="reviews__item">
-                            <div className="reviews__user user">
-                              <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                                <img
-                                  className="reviews__avatar user__avatar"
-                                  src={comment.user.avatar_url}
-                                  width={54}
-                                  height={54}
-                                  alt="Reviews avatar"
-                                />
-                              </div>
-                              <span className="reviews__user-name">
-                                {comment.user.name}
-                              </span>
-                            </div>
-                            <div className="reviews__info">
-                              <div className="reviews__rating rating">
-                                <div className="reviews__stars rating__stars">
-                                  <span
-                                    style={{ width: starWidth(comment.rating) }}
-                                  />
-                                  <span className="visually-hidden">
-                                    Rating
-                                  </span>
-                                </div>
-                              </div>
-                              <p className="reviews__text">{comment.comment}</p>
-                              <time
-                                className="reviews__time"
-                                dateTime={comment.date.split(`T`)[0]}
-                              >
-                                {`${
-                                  monthNames[new Date(comment.date).getMonth()]
-                                }`}
-                                {new Date(comment.date).getFullYear()}
-                              </time>
-                            </div>
-                          </li>
-                        </React.Fragment>
-                      ))}
-                    </ul>
-                    <form
-                      className="reviews__form form"
-                      action="#"
-                      method="post"
-                    >
-                      <label
-                        className="reviews__label form__label"
-                        htmlFor="review"
-                      >
-                        Your review
-                      </label>
-                      <div className="reviews__rating-form form__rating">
-                        <input
-                          className="form__rating-input visually-hidden"
-                          name="rating"
-                          defaultValue={5}
-                          id="5-stars"
-                          type="radio"
-                        />
-                        <label
-                          htmlFor="5-stars"
-                          className="reviews__rating-label form__rating-label"
-                          title="perfect"
-                        >
-                          <svg
-                            className="form__star-image"
-                            width={37}
-                            height={33}
-                          >
-                            <use xlinkHref="#icon-star" />
-                          </svg>
-                        </label>
-                        <input
-                          className="form__rating-input visually-hidden"
-                          name="rating"
-                          defaultValue={4}
-                          id="4-stars"
-                          type="radio"
-                        />
-                        <label
-                          htmlFor="4-stars"
-                          className="reviews__rating-label form__rating-label"
-                          title="good"
-                        >
-                          <svg
-                            className="form__star-image"
-                            width={37}
-                            height={33}
-                          >
-                            <use xlinkHref="#icon-star" />
-                          </svg>
-                        </label>
-                        <input
-                          className="form__rating-input visually-hidden"
-                          name="rating"
-                          defaultValue={3}
-                          id="3-stars"
-                          type="radio"
-                        />
-                        <label
-                          htmlFor="3-stars"
-                          className="reviews__rating-label form__rating-label"
-                          title="not bad"
-                        >
-                          <svg
-                            className="form__star-image"
-                            width={37}
-                            height={33}
-                          >
-                            <use xlinkHref="#icon-star" />
-                          </svg>
-                        </label>
-                        <input
-                          className="form__rating-input visually-hidden"
-                          name="rating"
-                          defaultValue={2}
-                          id="2-stars"
-                          type="radio"
-                        />
-                        <label
-                          htmlFor="2-stars"
-                          className="reviews__rating-label form__rating-label"
-                          title="badly"
-                        >
-                          <svg
-                            className="form__star-image"
-                            width={37}
-                            height={33}
-                          >
-                            <use xlinkHref="#icon-star" />
-                          </svg>
-                        </label>
-                        <input
-                          className="form__rating-input visually-hidden"
-                          name="rating"
-                          defaultValue={1}
-                          id="1-star"
-                          type="radio"
-                        />
-                        <label
-                          htmlFor="1-star"
-                          className="reviews__rating-label form__rating-label"
-                          title="terribly"
-                        >
-                          <svg
-                            className="form__star-image"
-                            width={37}
-                            height={33}
-                          >
-                            <use xlinkHref="#icon-star" />
-                          </svg>
-                        </label>
-                      </div>
-                      <textarea
-                        className="reviews__textarea form__textarea"
-                        id="review"
-                        name="review"
-                        placeholder="Tell how was your stay, what you like and what can be improved"
-                        defaultValue=""
-                      />
-                      <div className="reviews__button-wrapper">
-                        <p className="reviews__help">
-                          To submit review please make sure to set
-                          <span className="reviews__star">rating</span> and
-                          describe your stay with at least
-                          <b className="reviews__text-amount">50 characters</b>.
-                        </p>
-                        <button
-                          className="reviews__submit form__submit button"
-                          type="submit"
-                          disabled
-                        >
-                          Submit
-                        </button>
-                      </div>
-                    </form>
-                  </section>
+                  <Comments id={cardId} cardCommentsState={cardCommentsState} starWidth={starWidth} isAuth={isAuth.now}/>
                 </div>
               </div>
               <section
                 className="property__map map"
                 style={{
                   width: 1144,
-                  margin: `0 auto`
+                  margin: `0 auto`,
                 }}
               >
-                <Map hotels={cardNearbyState} />
+                <Map hotels={cardNearbyState}/>
               </section>
             </section>
             <div className="container">
@@ -399,7 +194,7 @@ const CardProperty = (props) => {
                 </h2>
                 <div className="near-places__list places__list">
                   {cardNearbyState.map((obj) => {
-                    return <Card key={obj.id} objCard={obj} isNear={true} />;
+                    return <Card key={obj.id} objCard={obj} cardPlace={`near`}/>;
                   })}
                 </div>
               </section>
@@ -409,7 +204,7 @@ const CardProperty = (props) => {
       </div>
     );
   } else {
-    return <Loader />;
+    return <Loader/>;
   }
 };
 

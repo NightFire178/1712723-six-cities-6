@@ -1,18 +1,11 @@
 import React, { FC, useEffect, useRef } from "react"
 import leaflet from "leaflet"
-import hotel from '../../template/hotel'
+import hotel from '../../types/hotel'
 import "leaflet/dist/leaflet.css"
-type pink = {
-	latitude: number,
-	longitude: number,
-	zoom: number
-}
-const Map: FC<{ hotels: Array<hotel>, pink?: pink&boolean }> = ({ hotels, pink=false }) => {
-	console.log('map');
+
+// TODO fix comment point 	console.log('map');
+const Map: FC<{ hotels: Array<hotel> }> = ({ hotels }) => {
   let city:any = hotels[0].city.location
-  if(pink){
-    city =  pink
-  }
 	const mapRef: any = useRef();
 	useEffect(() => {
 		mapRef.current = leaflet.map(`map`, {
@@ -33,7 +26,6 @@ const Map: FC<{ hotels: Array<hotel>, pink?: pink&boolean }> = ({ hotels, pink=f
         iconUrl: `./img/pin.svg`,
         iconSize: [27, 39]
       });
-		if (!pink) {
 			hotels.forEach((hotels) => {
 				leaflet.marker({
 					lat: hotels.location.latitude,
@@ -44,30 +36,18 @@ const Map: FC<{ hotels: Array<hotel>, pink?: pink&boolean }> = ({ hotels, pink=f
 					})
 					.addTo(mapRef.current)
 					.bindPopup(hotels.title)
-					.on('click', (evt: any) => {
-						console.log(evt)
+					.on('click', () => {
 						mapRef.current.flyTo([hotels.location.latitude, hotels.location.longitude], hotels.location.zoom)
 					})
 					.on('popupclose', ()=>{
 						mapRef.current.flyTo([city.latitude, city.longitude], city.zoom)
 					})
 			});
-		} else {
-      leaflet.marker({
-        lat: city.latitude,
-        lng: city.longitude
-      },
-        {
-          icon: customIcon
-        })
-        .addTo(mapRef.current)
-        .bindPopup(hotels[0].title)
-    }
-		return () => { mapRef.current.remove() }
-	});
+			return ()=> mapRef.current.remove()
+	},[hotels]);
 
 	return (
-		<div id="map" style={{ height: `100%` }} ref={mapRef}></div>
+		<div id="map" style={{height: `100%`}} ref={mapRef}/>
 	);
 }
 
