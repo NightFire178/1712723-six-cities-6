@@ -6,7 +6,7 @@ import {hotelInfoActionTypes, hotelInfoAction} from "../reducer/types/hotel-info
 import ErrorMessage from '../../utils/error-message'
 
 
-export const thunkGetComments = (id: number): ThunkAction<void, any, unknown, hotelInfoActionTypes> =>
+export const thunkGetComments = (id: number): ThunkAction<void, StoreType, unknown, hotelInfoActionTypes> =>
   async (dispatch) => {
     try {
       const {data: comments}: { data: Array<IComment> } = await API.get(`/comments/${id}`)

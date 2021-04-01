@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {FC} from 'react'
 import {Redirect} from 'react-router-dom'
 import {Link} from "react-router-dom"
 import Header from "./block/header";
@@ -34,7 +34,7 @@ const schema = yup.object().shape({
   password: yup.string().required().min(1)
 })
 
-const Login = () => {
+const Login:FC = () => {
   const {register, handleSubmit, errors} = useForm({resolver: yupResolver(schema)})
   const dispatch = useDispatch();
   const auth = useSelector((state: StoreType) => (state.appState.isAuth.now))

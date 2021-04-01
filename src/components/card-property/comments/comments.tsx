@@ -1,10 +1,10 @@
-import React, {FunctionComponent, useMemo, useState} from 'react';
+import React, {FunctionComponent, useMemo, useState, useCallback} from 'react';
 import {useDispatch} from 'react-redux'
-import {useForm} from 'react-hook-form'
+import {useForm, Control} from 'react-hook-form'
 import comment, {IPostComment} from '../../../types/comment'
 import {thunkPostComment} from "../../../redux/thunk/comments";
 import starWidth from "../../../utils/star-width"
-import ComponentButton from "./button"
+import ComponentButton, {IFormInput} from "./button"
 
 interface OwnProps {
   cardCommentsState: Array<comment>
@@ -20,19 +20,23 @@ const Comments: FunctionComponent<Props> = ({id, cardCommentsState, isAuth}) => 
   const [hotelMaxComment, setHotelMaxComment] = useState(10)
   const [activeForm , setActiveFrom] = useState(false)
   const comments = useMemo(() => cardCommentsState.slice().sort((a, b) => (new Date(a.date).getTime() > new Date(b.date).getTime() ? -1 : 1)), [cardCommentsState]);
-  const onSubmitHandle = async (data: IPostComment) => {
-    setActiveFrom(true)
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore pormise<bolean>
-    const res:boolean = await dispatch(thunkPostComment(id, data)) 
-    if(res===true){
-      setActiveFrom(false)
-      reset()
-    } else{
-      setActiveFrom(false)
-    }
-  }
-  const addMaxCommentHandle = ()=>{
+  const onSubmitHandle = useCallback(
+    async (data: IPostComment) => {
+      setActiveFrom(true)
+      // eslint-disable-next-line
+      // @ts-ignore
+      const res:boolean = await dispatch(thunkPostComment(id, data))
+      if(res===true){
+        setActiveFrom(false)
+        reset()
+      } else{
+        setActiveFrom(false)
+      }
+    },
+    [id],
+  );
+
+  const handleAddMaxComment = ()=>{
     setHotelMaxComment(hotelMaxComment+10)
   }
 
@@ -82,7 +86,7 @@ const Comments: FunctionComponent<Props> = ({id, cardCommentsState, isAuth}) => 
         }
       })}
     </ul>
-    {comments.length>hotelMaxComment&&<button onClick={addMaxCommentHandle} style={{
+    {comments.length>hotelMaxComment&&<button onClick={handleAddMaxComment} style={{
       width: `100%`,
       border: `1px solid grey`,
       borderRadius: `5px`,
@@ -198,9 +202,10 @@ const Comments: FunctionComponent<Props> = ({id, cardCommentsState, isAuth}) => 
         placeholder="Tell how was your stay, what you like and what can be improved"
         defaultValue=""
         ref={register}/>
-      <ComponentButton control={control}/>
+      <ComponentButton control={control as Control<IFormInput>}/>
     </form>}
   </section>);
 };
+
 
 export default Comments;

@@ -1,13 +1,18 @@
 import React, {FunctionComponent, useState} from 'react';
-import {useWatch} from 'react-hook-form'
+import {useWatch, Control} from 'react-hook-form'
 import * as yup from 'yup'
 
 const schema = yup.object().shape({
   rating: yup.number().required(),
   comment: yup.string().required().min(50).max(300)
 })
+export interface IFormInput{
+  rating:string,
+  comments: string
+}
 
-const ComponentButton: FunctionComponent<{ control: any }> = ({control}) => {
+
+const ComponentButton: FunctionComponent<{ control: Control<IFormInput> }> = ({control}) => {
   const [buttonActive, setButtonActive] = useState(false)
   const formInputs = useWatch({control});
   schema.isValid(formInputs)

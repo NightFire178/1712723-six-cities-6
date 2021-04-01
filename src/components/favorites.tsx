@@ -60,7 +60,7 @@ const Favorites: FC = () => {
                         </div>
                       </div>
                       <div className="favorites__places">
-                        {hotels && hotels.filter(temp => temp.city.name === cityMap).map((obj, i) => (
+                        {hotels && hotels.filter(temp => temp.city.name === cityMap).map((obj) => (
                           <Card objCard={obj} cardPlace={`favorites`} key={obj.id}/>
                         ))}
                       </div>

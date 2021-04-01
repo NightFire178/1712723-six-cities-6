@@ -8,6 +8,8 @@ const markerSVG = {
   active: `img/pin-active.svg`
 };
 
+const MAP_ID = `map`
+
 const customIcon = (img: string) => (leaflet.icon({
   iconUrl: img,
   iconSize: [27, 39]
@@ -16,9 +18,9 @@ const customIcon = (img: string) => (leaflet.icon({
 const MapFc: FC<{ hotels: Array<hotel>, activeId?: number }> = ({hotels, activeId = -1}) => {
   const city = hotels[0].city.location
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const mapRef:any = useRef(); // TODO ментор
+  const mapRef:any = useRef();
   useEffect(() => {
-    mapRef.current = leaflet.map(`map`, {
+    mapRef.current = leaflet.map(MAP_ID, {
       center: {
         lat: city.latitude,
         lng: city.longitude
@@ -33,7 +35,7 @@ const MapFc: FC<{ hotels: Array<hotel>, activeId?: number }> = ({hotels, activeI
       })
       .addTo(mapRef.current);
     return () => {
-      mapRef.current.remove()
+      mapRef.current?.remove()
     }
   }, [hotels]);
 
@@ -64,7 +66,7 @@ const MapFc: FC<{ hotels: Array<hotel>, activeId?: number }> = ({hotels, activeI
             .setLatLng(e.latlng)
             .setContent( `<img
                 src="${hotels.preview_image}"
-                style="height: 100px"
+                style="width: 100%"
                 alt="${hotels.title}"
               /><br>
               <b>${hotels.title}</b><br>
@@ -80,15 +82,14 @@ const MapFc: FC<{ hotels: Array<hotel>, activeId?: number }> = ({hotels, activeI
       return tempMarker
     });
     if(active){
-      mapRef.current.flyTo([city.latitude, city.longitude], city.zoom)
+      mapRef.current?.flyTo([city.latitude, city.longitude], city.zoom)
     }
     return () => {
       marker.forEach((obj) => obj.remove())
     }
   }, [activeId, hotels])
-
   return (
-    <div id="map" style={{height: `100%`}} ref={mapRef}/>
+    <div id={MAP_ID} style={{height: `100%`}} ref={mapRef}/>
   );
 }
 

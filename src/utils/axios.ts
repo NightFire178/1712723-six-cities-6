@@ -1,8 +1,7 @@
-import axios from "axios";
+import axios, {AxiosPromise} from "axios";
 
-// TODO mentor
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default (url: string): Promise<any> => {
+
+export default (url: string): AxiosPromise  => {
 	return axios(url, {
 		withCredentials: true,
     timeout: 5000

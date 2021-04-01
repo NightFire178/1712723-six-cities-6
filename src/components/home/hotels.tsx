@@ -10,24 +10,30 @@ interface OwnProps {
   hotels: Array<Hotel>,
   setActiveId?: React.Dispatch<React.SetStateAction<number>>
 }
-// TODO mentor
+export enum sortName{
+  popular=`Popular`,
+  priceLowToHigh =`Price: low to high`,
+  priceHighToLow = `Price: high to low`,
+  topRatedFirst = `Top rated first`
+}
 const sortMap = new Map([
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  [`Popular`, (a: Hotel, b: Hotel) => (0)],
-  [`Price: low to high`, (a: Hotel, b: Hotel) => (a.price > b.price ? 1 : -1)],
-  [`Price: high to low`, (a: Hotel, b: Hotel) => (a.price > b.price ? -1 : 1)],
-  [`Top rated first`, (a: Hotel, b: Hotel) => (a.rating > b.rating ? -1 : 1)]
+  [sortName.popular, (_a: Hotel, _b: Hotel) => (0)],
+  [sortName.priceLowToHigh, (a: Hotel, b: Hotel) => (a.price > b.price ? 1 : -1)],
+  [sortName.priceHighToLow, (a: Hotel, b: Hotel) => (a.price > b.price ? -1 : 1)],
+  [sortName.topRatedFirst, (a: Hotel, b: Hotel) => (a.rating > b.rating ? -1 : 1)]
 ])
 type Props = OwnProps;
 
 const Hotels: FunctionComponent<Props> = ({hotels, setActiveId}) => {
-  const sortState = appStateSelection.sort()
+  const sortState = appStateSelection.sort() as sortName
   const [sortOpen, setSortOpen] = useState(false)
-  const [renderHotels, setRenderHotels] = useState<any>() // TODO ME
+  //eslint-disable-next-line
+  const [renderHotels, setRenderHotels] = useState<any>(undefined) // TODO ME
   const dispatch = useDispatch()
   useEffect(() => {
     const sort = hotels.slice().sort(sortMap.get(sortState))
-    setRenderHotels(sort.map(obj=>(<Card key={obj.id} objCard={obj} cardPlace={`cities`} setActiveId={setActiveId}/>)))
+    setRenderHotels(sort?.map(obj=>(<Card key={obj.id} objCard={obj} cardPlace={`cities`} setActiveId={setActiveId}/>)))
   }, [hotels, sortState])
   const clickSortHandler = (evt:React.MouseEvent) => {
     const target = evt.target as HTMLElement

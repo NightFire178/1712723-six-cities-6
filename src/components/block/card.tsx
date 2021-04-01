@@ -5,7 +5,7 @@ import FavoriteButton from "./favorite-button";
 import starWidthFunction from "../../utils/star-width"
 
 
-interface Card {
+export interface ICard {
   objCard: hotel,
   cardPlace: string,
   setActiveId?: React.Dispatch<React.SetStateAction<number>>
@@ -53,7 +53,7 @@ const cardStylePlace = new Map([
   ]
 ])
 
-const Card: React.FC<Card> = ({objCard, cardPlace, setActiveId}) => {
+const Card: React.FC<ICard> = ({objCard, cardPlace, setActiveId}) => {
   const cardHTML:ICardHTML|undefined = cardStylePlace.get(cardPlace)
   if(!cardHTML){ // TODO dev if
     throw `card.tsx error cardPlace`

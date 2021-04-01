@@ -1,4 +1,5 @@
 import {appStateAction, appStateActionTypes, IAppState} from "./types/app-state"
+import {sortName} from "../../components/home/hotels";
 
 const defaultUserData = {
   id: -1,
@@ -14,7 +15,7 @@ const initialState: IAppState = {
     user: defaultUserData
   },
   load: false,
-  sort: `Popular`,
+  sort: sortName.popular,
   error: {
     message: '',
     now: false

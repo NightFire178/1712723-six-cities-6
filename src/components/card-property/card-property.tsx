@@ -29,8 +29,6 @@ const CardProperty: FC<TCardProperty> = (props) => {
   const cardCommentsState = hotelInfoSelection.hotelInfoComment(cardId)
   const isAuth = appStateSelection.isAuth()
   useEffect(() => {
- // eslint-disable-next-line @typescript-eslint/ban-ts-comment
- // @ts-ignore   // TODO mentor
     thunkHotelInfo(cardId).then((resStatus: number) => {
       setStatusNotFound(resStatus)
     })
