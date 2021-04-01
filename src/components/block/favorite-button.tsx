@@ -40,6 +40,7 @@ const placeMap = new Map([
     },
     classIcon: `property__bookmark-icon`,
   }]
+  
 ])
 
 const FavoriteButton: FunctionComponent<Props> = ({cardId, buttonPlace}) => {
