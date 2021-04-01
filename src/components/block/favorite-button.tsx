@@ -28,6 +28,7 @@ const placeMap = new Map([
     size: {
       height: 19,
       width: 18
+      
     },
     classIcon: "place-card__bookmark-icon"
   }],
