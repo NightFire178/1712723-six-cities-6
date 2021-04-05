@@ -17,7 +17,7 @@ jest.mock("../../../redux/selectors/app-state", ()=>appStateSelection)
 //eslint-disable-next-line
 jest.mock(`../../block/card/card`, ()=>()=><div>Card</div>)
 
-test(`nav block component test`, () => {
+test(`hotels home component test`, () => {
   const hotels = JSON.parse(JSON.stringify(mockArrayHotels))
   const header = render(<Hotels hotels={hotels} /> )
   expect(header).toMatchSnapshot()

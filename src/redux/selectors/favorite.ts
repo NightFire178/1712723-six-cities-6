@@ -23,7 +23,6 @@ const favoriteSelection:IFavorite ={
       const citySelector: Array<string> = [];
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      // TODO me
       const hotelsSelector: Array<hotel>|undefined = favorite.map((id) => (hotels.find((obj) => +obj.id === id)))
       if (hotelsSelector && hotelsSelector.length>=0) {
         cityes.forEach(value => {
