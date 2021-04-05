@@ -55,8 +55,12 @@ const cardStylePlace = new Map([
 
 const Card: React.FC<Card> = ({objCard, cardPlace, setActiveId}) => {
   const cardHTML:ICardHTML|undefined = cardStylePlace.get(cardPlace)
-  if(!cardHTML){ // TODO dev if
-    throw `card.tsx error cardPlace`
+  // 1. Так можно, но тогда для продакш лучше использовать
+  // @see https://reactjs.org/docs/error-boundaries.html#gatsby-focus-wrapper
+  if(!cardHTML){
+    // 2. лучше выбрасывать исключение в виде объекта ошибки:
+    // throw new Error(`card.tsx error cardPlace`);
+    throw `card.tsx error cardPlace`;
   }
   const {
     id,

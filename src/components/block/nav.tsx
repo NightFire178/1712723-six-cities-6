@@ -7,8 +7,8 @@ import appStateSelection from "../../redux/selectors/app-state";
 const Nav: FC = () => {
   const city = appStateSelection.cityNow()
   const dispatch = useDispatch();
-  const click = (evt:React.MouseEvent) => { // TODO ментор
-    const temp = evt.target as HTMLElement
+  const onClick = (evt:React.MouseEvent<HTMLAnchorElement>) => {
+    const temp = evt.currentTarget;
     dispatch({type: appStateAction.CITY_SET, payload: temp.textContent});
   };
   return (
@@ -18,7 +18,7 @@ const Nav: FC = () => {
           <ul className="locations__list tabs__list">
             {cityes.map((place, i) => (
               <Fragment key={i + place}>
-                <a onClick={click}>
+                <a onClick={onClick}>
                   <li className="locations__item">
                     <div
                       className={`locations__item-link tabs__item ${

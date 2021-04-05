@@ -13,7 +13,7 @@ interface OwnProps {
 // TODO mentor
 const sortMap = new Map([
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  [`Popular`, (a: Hotel, b: Hotel) => (0)],
+  [`Popular`, (_a: Hotel, _b: Hotel) => 0],
   [`Price: low to high`, (a: Hotel, b: Hotel) => (a.price > b.price ? 1 : -1)],
   [`Price: high to low`, (a: Hotel, b: Hotel) => (a.price > b.price ? -1 : 1)],
   [`Top rated first`, (a: Hotel, b: Hotel) => (a.rating > b.rating ? -1 : 1)]
