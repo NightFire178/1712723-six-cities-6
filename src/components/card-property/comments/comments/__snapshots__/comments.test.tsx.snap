@@ -1,0 +1,325 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`comments card-property comments component block test 1`] = `
+<div>
+  <section
+    class="property__reviews reviews"
+  >
+    <h2
+      class="reviews__title"
+    >
+      Reviews ·
+      <span
+        class="reviews__amount"
+      >
+        3
+      </span>
+    </h2>
+    <ul
+      class="reviews__list"
+    >
+      <li
+        class="reviews__item"
+      >
+        <div
+          class="reviews__user user"
+        >
+          <div
+            class="reviews__avatar-wrapper user__avatar-wrapper"
+          >
+            <img
+              alt="Reviews avatar"
+              class="reviews__avatar user__avatar"
+              height="54"
+              src="https://assets.htmlacademy.ru…tar/6.jp"
+              width="54"
+            />
+          </div>
+          <span
+            class="reviews__user-name"
+          >
+            vasa
+          </span>
+        </div>
+        <div
+          class="reviews__info"
+        >
+          <div
+            class="reviews__rating rating"
+          >
+            <div
+              class="reviews__stars rating__stars"
+            >
+              <span
+                style="width: 60%;"
+              />
+              <span
+                class="visually-hidden"
+              >
+                Rating
+              </span>
+            </div>
+          </div>
+          <p
+            class="reviews__text"
+          >
+            Beautiful space, fantastic location and atmosphere,
+  really a wonderful place to spend a few days. Will be back.
+          </p>
+          <time
+            class="reviews__time"
+            datetime="2021-03-07"
+          >
+            March 2021
+          </time>
+        </div>
+      </li>
+      <li
+        class="reviews__item"
+      >
+        <div
+          class="reviews__user user"
+        >
+          <div
+            class="reviews__avatar-wrapper user__avatar-wrapper"
+          >
+            <img
+              alt="Reviews avatar"
+              class="reviews__avatar user__avatar"
+              height="54"
+              src="https://assets.htmlacademy.ru…tar/6.jp"
+              width="54"
+            />
+          </div>
+          <span
+            class="reviews__user-name"
+          >
+            vasa
+          </span>
+        </div>
+        <div
+          class="reviews__info"
+        >
+          <div
+            class="reviews__rating rating"
+          >
+            <div
+              class="reviews__stars rating__stars"
+            >
+              <span
+                style="width: 100%;"
+              />
+              <span
+                class="visually-hidden"
+              >
+                Rating
+              </span>
+            </div>
+          </div>
+          <p
+            class="reviews__text"
+          >
+            Beautiful space, fantastic location and atmosphere,
+  really a wonderful place to spend a few days. Will be back.
+          </p>
+          <time
+            class="reviews__time"
+            datetime="2021-03-07"
+          >
+            March 2021
+          </time>
+        </div>
+      </li>
+      <li
+        class="reviews__item"
+      >
+        <div
+          class="reviews__user user"
+        >
+          <div
+            class="reviews__avatar-wrapper user__avatar-wrapper"
+          >
+            <img
+              alt="Reviews avatar"
+              class="reviews__avatar user__avatar"
+              height="54"
+              src="https://assets.htmlacademy.ru…tar/6.jp"
+              width="54"
+            />
+          </div>
+          <span
+            class="reviews__user-name"
+          >
+            vasa
+          </span>
+        </div>
+        <div
+          class="reviews__info"
+        >
+          <div
+            class="reviews__rating rating"
+          >
+            <div
+              class="reviews__stars rating__stars"
+            >
+              <span
+                style="width: 80%;"
+              />
+              <span
+                class="visually-hidden"
+              >
+                Rating
+              </span>
+            </div>
+          </div>
+          <p
+            class="reviews__text"
+          >
+            What an amazing view! The house is stunning and in
+    an amazing location. The large glass wall had an amazing view of the river!
+          </p>
+          <time
+            class="reviews__time"
+            datetime="2021-03-07"
+          >
+            March 2021
+          </time>
+        </div>
+      </li>
+    </ul>
+    <form
+      class="reviews__form form"
+    >
+      <label
+        class="reviews__label form__label"
+        for="review"
+      >
+        Your review
+      </label>
+      <div
+        class="reviews__rating-form form__rating"
+      >
+        <input
+          class="form__rating-input visually-hidden"
+          id="5-stars"
+          name="rating"
+          type="radio"
+          value="5"
+        />
+        <label
+          class="reviews__rating-label form__rating-label"
+          for="5-stars"
+          title="perfect"
+        >
+          <svg
+            class="form__star-image"
+            height="33"
+            width="37"
+          >
+            <use
+              xlink:href="#icon-star"
+            />
+          </svg>
+        </label>
+        <input
+          class="form__rating-input visually-hidden"
+          id="4-stars"
+          name="rating"
+          type="radio"
+          value="4"
+        />
+        <label
+          class="reviews__rating-label form__rating-label"
+          for="4-stars"
+          title="good"
+        >
+          <svg
+            class="form__star-image"
+            height="33"
+            width="37"
+          >
+            <use
+              xlink:href="#icon-star"
+            />
+          </svg>
+        </label>
+        <input
+          class="form__rating-input visually-hidden"
+          id="3-stars"
+          name="rating"
+          type="radio"
+          value="3"
+        />
+        <label
+          class="reviews__rating-label form__rating-label"
+          for="3-stars"
+          title="not bad"
+        >
+          <svg
+            class="form__star-image"
+            height="33"
+            width="37"
+          >
+            <use
+              xlink:href="#icon-star"
+            />
+          </svg>
+        </label>
+        <input
+          class="form__rating-input visually-hidden"
+          id="2-stars"
+          name="rating"
+          type="radio"
+          value="2"
+        />
+        <label
+          class="reviews__rating-label form__rating-label"
+          for="2-stars"
+          title="badly"
+        >
+          <svg
+            class="form__star-image"
+            height="33"
+            width="37"
+          >
+            <use
+              xlink:href="#icon-star"
+            />
+          </svg>
+        </label>
+        <input
+          class="form__rating-input visually-hidden"
+          id="1-star"
+          name="rating"
+          type="radio"
+          value="1"
+        />
+        <label
+          class="reviews__rating-label form__rating-label"
+          for="1-star"
+          title="terribly"
+        >
+          <svg
+            class="form__star-image"
+            height="33"
+            width="37"
+          >
+            <use
+              xlink:href="#icon-star"
+            />
+          </svg>
+        </label>
+      </div>
+      <textarea
+        class="reviews__textarea form__textarea"
+        id="review"
+        name="comment"
+        placeholder="Tell how was your stay, what you like and what can be improved"
+      />
+      <div>
+        button component
+      </div>
+    </form>
+  </section>
+</div>
+`;

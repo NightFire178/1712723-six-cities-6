@@ -1,4 +1,4 @@
-import {IInfoState, THotelInfo} from "../reducer/types/hotel-info";
+import {IInfoState, THotelInfo} from "../reducer/types-action-creators/hotel-info";
 import useTypedSelector from "../../hooks/use-selector-type";
 import comments from "../../types/comment";
 import Hotel from "../../types/hotel";

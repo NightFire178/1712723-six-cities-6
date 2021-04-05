@@ -1,0 +1,302 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`nav block component test 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <section
+        class="cities__places places"
+      >
+        <h2
+          class="visually-hidden"
+        >
+          Places
+        </h2>
+        <b
+          class="places__found"
+        >
+          13
+           places to stay in 
+          Brussels
+        </b>
+        <form
+          action="#"
+          class="places__sorting"
+          method="get"
+        >
+          <span
+            class="places__sorting-caption"
+          >
+            Sort by
+          </span>
+          <span
+            class="places__sorting-type"
+            tabindex="0"
+          >
+            Popular
+            <div>
+              <svg
+                class="places__sorting-arrow"
+                height="4"
+                width="7"
+              >
+                <use
+                  xlink:href="#icon-arrow-select"
+                />
+              </svg>
+            </div>
+          </span>
+          <ul
+            class="places__options places__options--custom false"
+          >
+            <li
+              class="places__option places__option--active"
+              tabindex="0"
+              value="0"
+            >
+              Popular
+            </li>
+            <li
+              class="places__option"
+              tabindex="0"
+              value="1"
+            >
+              Price: low to high
+            </li>
+            <li
+              class="places__option"
+              tabindex="0"
+              value="2"
+            >
+              Price: high to low
+            </li>
+            <li
+              class="places__option"
+              tabindex="0"
+              value="3"
+            >
+              Top rated first
+            </li>
+          </ul>
+        </form>
+        <div
+          class="cities__places-list places__list tabs__content"
+        >
+          <div>
+            Card
+          </div>
+          <div>
+            Card
+          </div>
+          <div>
+            Card
+          </div>
+          <div>
+            Card
+          </div>
+          <div>
+            Card
+          </div>
+          <div>
+            Card
+          </div>
+          <div>
+            Card
+          </div>
+          <div>
+            Card
+          </div>
+          <div>
+            Card
+          </div>
+          <div>
+            Card
+          </div>
+          <div>
+            Card
+          </div>
+          <div>
+            Card
+          </div>
+          <div>
+            Card
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>,
+  "container": <div>
+    <section
+      class="cities__places places"
+    >
+      <h2
+        class="visually-hidden"
+      >
+        Places
+      </h2>
+      <b
+        class="places__found"
+      >
+        13
+         places to stay in 
+        Brussels
+      </b>
+      <form
+        action="#"
+        class="places__sorting"
+        method="get"
+      >
+        <span
+          class="places__sorting-caption"
+        >
+          Sort by
+        </span>
+        <span
+          class="places__sorting-type"
+          tabindex="0"
+        >
+          Popular
+          <div>
+            <svg
+              class="places__sorting-arrow"
+              height="4"
+              width="7"
+            >
+              <use
+                xlink:href="#icon-arrow-select"
+              />
+            </svg>
+          </div>
+        </span>
+        <ul
+          class="places__options places__options--custom false"
+        >
+          <li
+            class="places__option places__option--active"
+            tabindex="0"
+            value="0"
+          >
+            Popular
+          </li>
+          <li
+            class="places__option"
+            tabindex="0"
+            value="1"
+          >
+            Price: low to high
+          </li>
+          <li
+            class="places__option"
+            tabindex="0"
+            value="2"
+          >
+            Price: high to low
+          </li>
+          <li
+            class="places__option"
+            tabindex="0"
+            value="3"
+          >
+            Top rated first
+          </li>
+        </ul>
+      </form>
+      <div
+        class="cities__places-list places__list tabs__content"
+      >
+        <div>
+          Card
+        </div>
+        <div>
+          Card
+        </div>
+        <div>
+          Card
+        </div>
+        <div>
+          Card
+        </div>
+        <div>
+          Card
+        </div>
+        <div>
+          Card
+        </div>
+        <div>
+          Card
+        </div>
+        <div>
+          Card
+        </div>
+        <div>
+          Card
+        </div>
+        <div>
+          Card
+        </div>
+        <div>
+          Card
+        </div>
+        <div>
+          Card
+        </div>
+        <div>
+          Card
+        </div>
+      </div>
+    </section>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

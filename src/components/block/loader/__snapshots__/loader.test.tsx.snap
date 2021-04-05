@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`loader component block test 1`] = `
+<div>
+  <div
+    class="cssload-loader-block"
+  >
+    <div
+      class="cssload-loader"
+    >
+      <div
+        class="cssload-inner cssload-one"
+      />
+      <div
+        class="cssload-inner cssload-two"
+      />
+      <div
+        class="cssload-inner cssload-three"
+      />
+    </div>
+  </div>
+</div>
+`;

@@ -1,4 +1,4 @@
-import {THotels} from "../reducer/types/hotels";
+import {THotels} from "../reducer/types-action-creators/hotels";
 import useTypedSelector from "../../hooks/use-selector-type";
 import Hotel from "../../types/hotel";
 

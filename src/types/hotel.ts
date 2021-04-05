@@ -1,29 +1,31 @@
 import User from "./user"
 
-export default interface Hotel {
-	bedrooms: number,
-	city: {
-		location: location,
-		name: string
-	},
-	description: string,
-	goods: Array<string>,
-	host: User,
-	id: number,
-	images: Array<string>,
-	is_favorite: boolean,
-	is_premium: boolean,
-	location: location,
-	max_adults: number,
-	preview_image: string,
-	price: number,
-	rating: number,
-	title: string,
-	type: string,
+interface Location {
+  latitude: number;
+  longitude: number;
+  zoom: number;
 }
 
-type location = {
-	latitude: number,
-	longitude: number,
-	zoom: number
+interface City {
+  name: string;
+  location: Location;
+}
+
+export default interface Hotel {
+  city: City;
+  preview_image: string;
+  images: string[];
+  title: string;
+  is_favorite: boolean;
+  is_premium: boolean;
+  rating: number;
+  type: string;
+  bedrooms: number;
+  max_adults: number;
+  price: number;
+  goods: string[];
+  host: User;
+  description: string;
+  location: Location;
+  id: number;
 }

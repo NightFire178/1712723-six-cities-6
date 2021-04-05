@@ -2,6 +2,7 @@ env:
   es2017: true
   browser: true
   commonjs: true
+  jest: true
 
 
 extends: [ "plugin:react/recommended", "plugin:@typescript-eslint/recommended"]

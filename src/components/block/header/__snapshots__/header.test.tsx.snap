@@ -1,0 +1,238 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`header block component test 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <header
+        class="header"
+      >
+        <div
+          class="container"
+        >
+          <div
+            class="header__wrapper"
+          >
+            <div
+              class="header__left"
+            >
+              <a
+                href="/"
+              >
+                <div
+                  class="header__logo-link  "
+                >
+                  <img
+                    alt="6 cities logo"
+                    class="header__logo"
+                    height="41"
+                    src="img/logo.svg"
+                    width="81"
+                  />
+                </div>
+              </a>
+            </div>
+            <nav
+              class="header__nav"
+            >
+              <ul
+                class="header__nav-list"
+              >
+                <li
+                  class="header__nav-item user"
+                >
+                  <div
+                    class="header__avatar-wrapper user__avatar-wrapper"
+                  >
+                    <img
+                      alt="Host avatar"
+                      class="property__avatar user__avatar"
+                      src="https://assets.htmlacademy.ru…tar/6.jp"
+                    />
+                  </div>
+                </li>
+                <li
+                  class="header__nav-item user"
+                >
+                  <a
+                    href="/favorites"
+                  >
+                    <div
+                      class="header__nav-link header__nav-link--profile"
+                    >
+                      <span
+                        class="header__user-name user__name"
+                      >
+                        sdfhskd@maid.ru
+                      </span>
+                    </div>
+                  </a>
+                </li>
+                <li
+                  class="header__nav-item user"
+                  style="margin-left: 10px;"
+                >
+                  <a
+                    class="header__nav-link header__nav-link--profile"
+                  >
+                    <div
+                      class="header__nav-link header__nav-link--profile"
+                    >
+                      <span
+                        class="header__login"
+                      >
+                        logout
+                      </span>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </header>
+    </div>
+  </body>,
+  "container": <div>
+    <header
+      class="header"
+    >
+      <div
+        class="container"
+      >
+        <div
+          class="header__wrapper"
+        >
+          <div
+            class="header__left"
+          >
+            <a
+              href="/"
+            >
+              <div
+                class="header__logo-link  "
+              >
+                <img
+                  alt="6 cities logo"
+                  class="header__logo"
+                  height="41"
+                  src="img/logo.svg"
+                  width="81"
+                />
+              </div>
+            </a>
+          </div>
+          <nav
+            class="header__nav"
+          >
+            <ul
+              class="header__nav-list"
+            >
+              <li
+                class="header__nav-item user"
+              >
+                <div
+                  class="header__avatar-wrapper user__avatar-wrapper"
+                >
+                  <img
+                    alt="Host avatar"
+                    class="property__avatar user__avatar"
+                    src="https://assets.htmlacademy.ru…tar/6.jp"
+                  />
+                </div>
+              </li>
+              <li
+                class="header__nav-item user"
+              >
+                <a
+                  href="/favorites"
+                >
+                  <div
+                    class="header__nav-link header__nav-link--profile"
+                  >
+                    <span
+                      class="header__user-name user__name"
+                    >
+                      sdfhskd@maid.ru
+                    </span>
+                  </div>
+                </a>
+              </li>
+              <li
+                class="header__nav-item user"
+                style="margin-left: 10px;"
+              >
+                <a
+                  class="header__nav-link header__nav-link--profile"
+                >
+                  <div
+                    class="header__nav-link header__nav-link--profile"
+                  >
+                    <span
+                      class="header__login"
+                    >
+                      logout
+                    </span>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

@@ -1,4 +1,4 @@
-import {errorType, isAuthType} from "../reducer/types/app-state";
+import {errorType, isAuthType} from "../reducer/types-action-creators/app-state";
 import useTypedSelector from "../../hooks/use-selector-type";
 
 type IAppState={

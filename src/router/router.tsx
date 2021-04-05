@@ -1,12 +1,12 @@
 import React, { FC } from "react";
 import {BrowserRouter, Route, Switch, Link} from "react-router-dom";
 import Auth from "./auth"
-import Home from "../components/home/home";
-import CardProperty from "../components/card-property/card-property"
-import Login from "../components/login"
-import Favorites from "../components/favorites"
+import Home from "../components/home/home/home";
+import CardProperty from "../components/card-property/card-property/card-property"
+import Login from "../components/login/login"
+import Favorites from "../components/favorites/favorites"
 import appStateSelection from "../redux/selectors/app-state";
-import Loader from "../components/block/loader";
+import Loader from "../components/block/loader/loader";
 
 const Router:FC = () => {
   const load = appStateSelection.load()

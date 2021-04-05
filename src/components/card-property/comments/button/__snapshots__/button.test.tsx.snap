@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`button card-property comments component block test 1`] = `
+<div>
+  <div
+    class="reviews__button-wrapper"
+  >
+    <p
+      class="reviews__help"
+    >
+      To submit review please make sure to set 
+      <span
+        class="reviews__star"
+      >
+        rating
+      </span>
+       and describe your stay with at least 
+      <b
+        class="reviews__text-amount"
+      >
+        50 characters
+      </b>
+      .
+    </p>
+    <button
+      class="reviews__submit form__submit button"
+      disabled=""
+      style="pointer-events: none;"
+    >
+      Submit
+    </button>
+  </div>
+</div>
+`;

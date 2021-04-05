@@ -1,4 +1,4 @@
-import {TFavorite} from "../reducer/types/favorite";
+import {TFavorite} from "../reducer/types-action-creators/favorite";
 import useTypedSelector from "../../hooks/use-selector-type";
 import Hotel from "../../types/hotel";
 import hotel from "../../types/hotel";
@@ -22,7 +22,7 @@ const favoriteSelection:IFavorite ={
     return useTypedSelector(({hotels, favorite})=>{
       const citySelector: Array<string> = [];
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore 
+      // @ts-ignore
       // TODO me
       const hotelsSelector: Array<hotel>|undefined = favorite.map((id) => (hotels.find((obj) => +obj.id === id)))
       if (hotelsSelector && hotelsSelector.length>=0) {

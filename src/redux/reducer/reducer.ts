@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import hotels from "./hotels"
-import appState from "./app-state"
-import hotelInfo from "./hotel-info"
-import favorite from "./favorite";
+import hotels from "./hotels/hotels"
+import appState from "./app-state/app-state"
+import hotelInfo from "./hotel-info/hotel-info"
+import favorite from "./favorite/favorite";
 
 const reducer = combineReducers({hotels, appState, hotelInfo, favorite})
 
