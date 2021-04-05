@@ -31,6 +31,7 @@ const placeMap = new Map([
     size: {
       height: 19,
       width: 18
+      
     },
     classIcon: "place-card__bookmark-icon"
   }],
@@ -43,6 +44,7 @@ const placeMap = new Map([
     },
     classIcon: `property__bookmark-icon`,
   }]
+  
 ])
 
 const FavoriteButton: FunctionComponent<Props> = ({cardId, buttonPlace}) => {
