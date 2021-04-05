@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`nav block component test 1`] = `
+exports[`hotels home component test 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
