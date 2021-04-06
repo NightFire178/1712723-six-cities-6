@@ -4,7 +4,7 @@ import Card from './card'
 import mockOneHotel from "../../../mock/mock-hotels";
 import { Router } from 'react-router-dom'
 import { createMemoryHistory } from 'history'
-import {cardPlaceEnum} from "../../../enum";
+import {CardPlaceEnum} from "../../../enum";
 
 //eslint-disable-next-line
 jest.mock('../favorite-button/favorite-button', () => () => (<><div>favorite button component</div></>))
@@ -15,19 +15,19 @@ test(`Card component block test`, () => {
   const history = createMemoryHistory()
   const city = render(
     <Router history={history}>
-      <Card objCard={hotel} cardPlace={cardPlaceEnum.cities}/>
+      <Card objCard={hotel} cardPlace={CardPlaceEnum.cities}/>
     </Router>
     )
   expect(city).toMatchSnapshot()
   const favorites = render(
     <Router history={history}>
-      <Card objCard={hotel} cardPlace={cardPlaceEnum.favorites}/>
+      <Card objCard={hotel} cardPlace={CardPlaceEnum.favorites}/>
     </Router>
   )
   expect(favorites).toMatchSnapshot()
   const near = render(
     <Router history={history}>
-      <Card objCard={hotel} cardPlace={cardPlaceEnum.near}/>
+      <Card objCard={hotel} cardPlace={CardPlaceEnum.near}/>
     </Router>
   )
   expect(near).toMatchSnapshot()

@@ -1,5 +1,5 @@
-import {errorType, isAuthType} from "../reducer/types-action-creators/app-state";
-import useTypedSelector from "../../hooks/use-selector-type";
+import {errorType, isAuthType} from "../../redux/reducer/types-action-creators/app-state";
+import useTypedSelector from "../use-selector-type";
 
 type IAppState={
   cityNow():string,
@@ -9,7 +9,7 @@ type IAppState={
   error(): errorType
 }
 
-const appStateSelection : IAppState ={
+const useAppStateSelection : IAppState ={
   cityNow():string {
     return useTypedSelector(({appState})=>appState.cityNow)
   },
@@ -28,4 +28,4 @@ const appStateSelection : IAppState ={
 }
 
 
-export default appStateSelection
+export default useAppStateSelection

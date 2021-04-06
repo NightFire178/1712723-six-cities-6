@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import hotel from "../../../types/hotel"
 import FavoriteButton from "../favorite-button/favorite-button";
 import starWidthFunction from "../../../utils/star-width"
-import {cardPlaceEnum, placeFavoriteButtonEnum} from "../../../enum";
+import {CardPlaceEnum, PlaceFavoriteButtonEnum} from "../../../enum";
 
 export interface ICard {
   objCard: hotel,
@@ -22,7 +22,7 @@ interface ICardHTML {
 }
 
 const cardStylePlace = new Map([
-  [cardPlaceEnum.cities, {
+  [CardPlaceEnum.cities, {
     article: `cities__place-card place-card`,
     imgWrapper: `cities__image-wrapper place-card__image-wrapper`,
     img: {
@@ -31,7 +31,7 @@ const cardStylePlace = new Map([
     },
     cardInfo: `place-card__info`
   }],
-  [cardPlaceEnum.near, {
+  [CardPlaceEnum.near, {
     article: `near-places__card place-card`,
     imgWrapper: `near-places__image-wrapper place-card__image-wrapper`,
     img: {
@@ -41,7 +41,7 @@ const cardStylePlace = new Map([
     cardInfo: `place-card__info`
   }],
   [
-    cardPlaceEnum.favorites, {
+    CardPlaceEnum.favorites, {
     article: `favorites__card place-card`,
     imgWrapper: `favorites__image-wrapper place-card__image-wrapper`,
     img: {
@@ -108,7 +108,7 @@ const Card: React.FC<ICard> = ({objCard, cardPlace, setActiveId}) => {
               <b className="place-card__price-value">€{price}</b>
               <span className="place-card__price-text">/&nbsp;night</span>
             </div>
-            <FavoriteButton cardId={id} buttonPlace={placeFavoriteButtonEnum.card}/>
+            <FavoriteButton cardId={id} buttonPlace={PlaceFavoriteButtonEnum.card}/>
           </div>
           <div className="place-card__rating rating">
             <div className="place-card__stars rating__stars">

@@ -3,7 +3,7 @@ import {useDispatch} from 'react-redux'
 import Hotel from "../../../types/hotel";
 import Loader from "../../block/loader/loader"
 import Card from "../../block/card/card";
-import appStateSelection from "../../../redux/selectors/app-state";
+import useAppStateSelection from "../../../hooks/use-selectors-state/use-app-state";
 import {appStateActionCreators} from "../../../redux/reducer/types-action-creators/app-state";
 
 interface OwnProps {
@@ -11,7 +11,7 @@ interface OwnProps {
   setActiveId?: React.Dispatch<React.SetStateAction<number>>
 }
 
-export enum sortName {
+export enum SortName {
   popular = `Popular`,
   priceLowToHigh = `Price: low to high`,
   priceHighToLow = `Price: high to low`,
@@ -20,15 +20,15 @@ export enum sortName {
 
 const sortMap = new Map([
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  [sortName.popular, (_a: Hotel, _b: Hotel) => (0)],
-  [sortName.priceLowToHigh, (a: Hotel, b: Hotel) => (a.price > b.price ? 1 : -1)],
-  [sortName.priceHighToLow, (a: Hotel, b: Hotel) => (a.price > b.price ? -1 : 1)],
-  [sortName.topRatedFirst, (a: Hotel, b: Hotel) => (a.rating > b.rating ? -1 : 1)]
+  [SortName.popular, (_a: Hotel, _b: Hotel) => (0)],
+  [SortName.priceLowToHigh, (a: Hotel, b: Hotel) => (a.price > b.price ? 1 : -1)],
+  [SortName.priceHighToLow, (a: Hotel, b: Hotel) => (a.price > b.price ? -1 : 1)],
+  [SortName.topRatedFirst, (a: Hotel, b: Hotel) => (a.rating > b.rating ? -1 : 1)]
 ])
 type Props = OwnProps;
 
 const Hotels: FunctionComponent<Props> = ({hotels, setActiveId}) => {
-  const sortState = appStateSelection.sort() as sortName
+  const sortState = useAppStateSelection.sort() as SortName
   const [sortOpen, setSortOpen] = useState(false)
   //eslint-disable-next-line
   const [renderHotels, setRenderHotels] = useState<any>(undefined)

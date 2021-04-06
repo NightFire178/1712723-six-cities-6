@@ -7,14 +7,14 @@ import mockOneHotel, {mockArrayHotels} from "../../../mock/mock-hotels";
 import {mockArrayComments} from "../../../mock/mock-comment";
 import mockUser from "../../../mock/mock-user";
 
-const hotelsSelection = {
+const useHotelsSelection = {
   oneHotel() {
     return mockOneHotel
   }
 }
 
-jest.mock("../../../redux/selectors/hotels", ()=>hotelsSelection)
-const  hotelInfoSelection = {
+jest.mock("../../../hooks/use-selectors-state/use-hotels", ()=>useHotelsSelection)
+const  useHotelInfoSelection = {
   hotelInfoNearby()  {
     return [mockArrayHotels[0], mockArrayHotels[1], mockArrayHotels[2]]
   },
@@ -22,8 +22,8 @@ const  hotelInfoSelection = {
     return mockArrayComments
   }
 }
-jest.mock("../../../redux/selectors/hotel-info", ()=>hotelInfoSelection)
-const appStateSelection = {
+jest.mock("../../../hooks/use-selectors-state/use-hotel-info", ()=>useHotelInfoSelection)
+const useAppStateSelection = {
   isAuth() {
     return {
       now:true,
@@ -33,7 +33,7 @@ const appStateSelection = {
 }
 const thunkHotelInfo =()=> new Promise((resolve)=>{resolve(200)})
 jest.mock('../../../hooks/use-thunk',() =>()=>({thunkHotelInfo}))
-jest.mock("../../../redux/selectors/app-state", ()=>appStateSelection)
+jest.mock("../../../hooks/use-selectors-state/use-app-state", ()=>useAppStateSelection)
 // eslint-disable-next-line
 jest.mock("../../block/favorite-button/favorite-button", ()=>()=><div>FavoriteButton</div>)
 // eslint-disable-next-line

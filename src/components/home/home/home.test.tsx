@@ -13,17 +13,17 @@ jest.mock("../../block/nav/nav", ()=>()=><div>nav</div>)
 //eslint-disable-next-line
 jest.mock("../hotels/hotels", ()=>()=><div>hotels</div>)
 
-const appStateSelection = {
+const useAppStateSelection = {
   cityNow:() =>(cityes[0])
 }
 
-jest.mock("../../../redux/selectors/app-state", ()=>appStateSelection)
+jest.mock("../../../hooks/use-selectors-state/use-app-state", ()=>useAppStateSelection)
 
-const hotelSelection = {
+const useHotelsSelection = {
   hotels: ()=>JSON.parse(JSON.stringify(mockArrayHotels))
 }
 
-jest.mock("../../../redux/selectors/hotels", ()=>hotelSelection)
+jest.mock("../../../hooks/use-selectors-state/use-hotels", ()=>useHotelsSelection)
 
 test(`home home component test`, () => {
   const header = render(<HomeComponents/>)

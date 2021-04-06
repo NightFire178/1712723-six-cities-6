@@ -2,10 +2,10 @@ import React, {Fragment, FC} from "react";
 import {useDispatch} from "react-redux";
 import cityes from "../../../data/cityes";
 import {appStateActionCreators} from "../../../redux/reducer/types-action-creators/app-state";
-import appStateSelection from "../../../redux/selectors/app-state";
+import useAppStateSelection from "../../../hooks/use-selectors-state/use-app-state";
 
 const Nav: FC = () => {
-  const city = appStateSelection.cityNow()
+  const city = useAppStateSelection.cityNow()
   const dispatch = useDispatch();
   const handleOnClick = (evt:React.MouseEvent) => {
     const temp = evt.currentTarget

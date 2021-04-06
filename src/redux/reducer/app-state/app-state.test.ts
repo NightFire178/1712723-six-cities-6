@@ -5,7 +5,7 @@ import {
 } from "../types-action-creators/app-state";
 import {initialAppState, appState, defaultUserData} from "./app-state";
 import mockUser from "../../../mock/mock-user"
-import {sortName} from "../../../components/home/hotels/hotels";
+import {SortName} from "../../../components/home/hotels/hotels";
 
 describe(`action app-state creation test`, ()=>{
   it(`action creators SORT_SET `, ()=>{
@@ -55,8 +55,8 @@ describe(`reducer appState test`,()=>{
   it(`action SORT_SET`, ()=>{
     const state = JSON.parse(JSON.stringify(initialAppState))
     const outState = JSON.parse(JSON.stringify(initialAppState))
-    const payload = sortName.priceHighToLow
-    outState.sort= sortName.priceHighToLow
+    const payload = SortName.priceHighToLow
+    outState.sort= SortName.priceHighToLow
     expect(appState(state, appStateActionCreators.SORT_SET(payload))).toEqual(outState)
   })
   it(`action CITY_SET`, ()=>{

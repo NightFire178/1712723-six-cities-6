@@ -70,7 +70,8 @@
 		"react-router-dom": "5.2",
 		"redux": "4",
 		"redux-thunk": "2.3",
-		"sweetalert2": "^10.15.7",
+		"reselect": "4",
+		"sweetalert2": "10.15.7",
 		"yup": "0.32.9"
 	}
 }

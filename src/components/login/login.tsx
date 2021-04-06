@@ -6,7 +6,7 @@ import {useForm} from 'react-hook-form'
 import * as yup from 'yup'
 import {yupResolver} from '@hookform/resolvers/yup'
 import useThunk from "../../hooks/use-thunk"
-import appStateSelection from "../../redux/selectors/app-state";
+import useAppStateSelection from "../../hooks/use-selectors-state/use-app-state";
 
 type IFormObj = {
   label: string;
@@ -36,7 +36,7 @@ const schema = yup.object().shape({
 const Login:FC = () => {
   const {register, handleSubmit, errors} = useForm({resolver: yupResolver(schema)})
   const {thunkPostLogin} = useThunk()
-  const auth = appStateSelection.isAuth()?.now
+  const auth = useAppStateSelection.isAuth()?.now
   const onSubmit = (data: { email: string, password: string }) => {
     thunkPostLogin(data)
   }

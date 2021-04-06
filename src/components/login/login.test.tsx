@@ -11,12 +11,12 @@ jest.mock('react', () => {
     useRef: mUseRef,
   };
 });
-const appStateSelection = {
+const useAppStateSelection = {
   isAuth:()=>({
     now:true
   })
 }
-jest.mock("../../redux/selectors/app-state", ()=> appStateSelection)
+jest.mock("../../hooks/use-selectors-state/use-app-state", ()=> useAppStateSelection)
 //eslint-disable-next-line
 const handleSubmit = ()=> useRef()
 const errors = ()=>[]

@@ -3,13 +3,13 @@ import useThunk from "../../hooks/use-thunk";
 import {Link} from "react-router-dom"
 import Header from "../block/header/header";
 import Card from "../block/card/card";
-import favoriteSelection from "../../redux/selectors/favorite";
+import useFavoriteSelection from "../../hooks/use-selectors-state/use-favorite";
 import Loader from "../block/loader/loader";
 
 
 const Favorites: FC = () => {
   const {thunkFavorites} = useThunk()
-  const hotelsFavorite = favoriteSelection.hotelsFavorite()
+  const hotelsFavorite = useFavoriteSelection.hotelsFavorite()
   useEffect(() => {
     thunkFavorites()
   }, [])

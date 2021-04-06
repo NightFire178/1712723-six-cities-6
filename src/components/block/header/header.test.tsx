@@ -8,7 +8,7 @@ import { createMemoryHistory } from 'history'
 const thunkLogOut = ()=> true
 jest.mock('../../../hooks/use-thunk',() =>()=>({thunkLogOut}))
 
-const appStateSelection = {
+const useAppStateSelection = {
   isAuth() {
     return {
       now:true,
@@ -16,7 +16,7 @@ const appStateSelection = {
     }
   }
 }
-jest.mock("../../../redux/selectors/app-state", ()=>appStateSelection)
+jest.mock("../../../hooks/use-selectors-state/use-app-state", ()=>useAppStateSelection)
 
 test(`header block component test`, () => {
   const history = createMemoryHistory()

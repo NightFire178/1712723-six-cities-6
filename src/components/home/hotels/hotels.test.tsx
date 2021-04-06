@@ -1,6 +1,6 @@
 import React from 'react'
 import {render} from '@testing-library/react'
-import Hotels, {sortName} from "./hotels";
+import Hotels, {SortName} from "./hotels";
 import {mockArrayHotels} from '../../../mock/mock-hotels'
 
 
@@ -8,11 +8,11 @@ const useDispatch = ()=>(jest.fn())
 
 jest.mock(`react-redux`, ()=>({useDispatch}))
 
-const appStateSelection = {
-  sort: ()=>sortName.popular
+const useAppStateSelection = {
+  sort: ()=>SortName.popular
 }
 
-jest.mock("../../../redux/selectors/app-state", ()=>appStateSelection)
+jest.mock("../../../hooks/use-selectors-state/use-app-state", ()=>useAppStateSelection)
 
 //eslint-disable-next-line
 jest.mock(`../../block/card/card`, ()=>()=><div>Card</div>)

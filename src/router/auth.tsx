@@ -1,13 +1,13 @@
 import React, {FunctionComponent} from 'react';
 import {Route, Redirect, RouteProps} from 'react-router-dom'
-import appStateSelection from "../redux/selectors/app-state";
+import useAppStateSelection from "../hooks/use-selectors-state/use-app-state";
 
 interface AuthRoute extends RouteProps {
   components: FunctionComponent
 }
 
 const auth: FunctionComponent<AuthRoute> = ({components: Component, ...rest}) => {
-  const auth: boolean = appStateSelection.isAuth().now
+  const auth: boolean = useAppStateSelection.isAuth().now
   return <Route
     {...rest}
     render={

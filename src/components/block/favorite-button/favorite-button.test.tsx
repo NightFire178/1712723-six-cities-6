@@ -2,30 +2,30 @@ import React from 'react'
 import {render} from '@testing-library/react'
 import FavoriteButton from "./favorite-button";
 import mockUser from "../../../mock/mock-user";
-import {placeFavoriteButtonEnum} from "../../../enum";
+import {PlaceFavoriteButtonEnum} from "../../../enum";
 
-const appStateSelection = {
+const useAppStateSelection = {
   isAuth:()=>({
     now:true,
     user:mockUser
   })
 }
 
-jest.mock("../../../redux/selectors/app-state", ()=>appStateSelection)
+jest.mock("../../../hooks/use-selectors-state/use-app-state", ()=>useAppStateSelection)
 
-const hotelsSelection = {
+const useHotelsSelection = {
   hotelFavorites: ()=>true
 }
 
-jest.mock("../../../redux/selectors/hotels", ()=>hotelsSelection)
+jest.mock("../../../hooks/use-selectors-state/use-hotels", ()=>useHotelsSelection)
 
 const thunkButtonFavorites = ()=>true
 jest.mock('../../../hooks/use-thunk',() =>()=>({thunkButtonFavorites}))
 
 test(`favoriteButton component test`, () => {
   const mockId = 4
-  const card = render(<FavoriteButton cardId={mockId} buttonPlace={placeFavoriteButtonEnum.card}/>)
+  const card = render(<FavoriteButton cardId={mockId} buttonPlace={PlaceFavoriteButtonEnum.card}/>)
   expect(card).toMatchSnapshot()
-  const property = render(<FavoriteButton cardId={mockId} buttonPlace={placeFavoriteButtonEnum.property}/>)
+  const property = render(<FavoriteButton cardId={mockId} buttonPlace={PlaceFavoriteButtonEnum.property}/>)
   expect(property).toMatchSnapshot()
 })

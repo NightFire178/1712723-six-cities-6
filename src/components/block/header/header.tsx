@@ -1,12 +1,12 @@
 import React, {FC} from "react";
 import {Link} from "react-router-dom";
 import useThunk  from "../../../hooks/use-thunk"
-import appStateSelection from "../../../redux/selectors/app-state";
+import useAppStateSelection from "../../../hooks/use-selectors-state/use-app-state";
 
 
 const Header: FC<{ isMain?: boolean }> = ({isMain = false}) => {
   const {thunkLogOut:handleLogOut} = useThunk()
-  const {now, user} = appStateSelection.isAuth()
+  const {now, user} = useAppStateSelection.isAuth()
 
   return (
     <>

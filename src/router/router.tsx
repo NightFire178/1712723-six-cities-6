@@ -5,11 +5,11 @@ import Home from "../components/home/home/home";
 import CardProperty from "../components/card-property/card-property/card-property"
 import Login from "../components/login/login"
 import Favorites from "../components/favorites/favorites"
-import appStateSelection from "../redux/selectors/app-state";
+import useAppStateSelection from "../hooks/use-selectors-state/use-app-state";
 import Loader from "../components/block/loader/loader";
 
 const Router:FC = () => {
-  const load = appStateSelection.load()
+  const load = useAppStateSelection.load()
   if(!load){
     return <Loader/>
   }

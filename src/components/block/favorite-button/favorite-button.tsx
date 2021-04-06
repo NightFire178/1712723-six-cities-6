@@ -1,13 +1,13 @@
 import React, {FunctionComponent, useState} from 'react';
 import {Redirect} from "react-router-dom"
 import useThunk from "../../../hooks/use-thunk";
-import appStateSelection from "../../../redux/selectors/app-state";
-import hotelsSelection from "../../../redux/selectors/hotels";
-import {placeFavoriteButtonEnum} from "../../../enum";
+import useAppStateSelection from "../../../hooks/use-selectors-state/use-app-state";
+import useHotelsSelection from "../../../hooks/use-selectors-state/use-hotels";
+import {PlaceFavoriteButtonEnum} from "../../../enum";
 
 interface OwnProps {
   cardId: number,
-  buttonPlace: placeFavoriteButtonEnum,
+  buttonPlace: PlaceFavoriteButtonEnum,
 }
 
 interface buttonHTML {
@@ -25,17 +25,17 @@ type Props = OwnProps;
 
 
 const placeMap = new Map([
-  [placeFavoriteButtonEnum.card, {
+  [PlaceFavoriteButtonEnum.card, {
     classActive: `place-card__bookmark-button place-card__bookmark-button--active button`,
     classNoActive: `place-card__bookmark-button button`,
     size: {
       height: 19,
       width: 18
-      
+
     },
     classIcon: "place-card__bookmark-icon"
   }],
-  [placeFavoriteButtonEnum.property, {
+  [PlaceFavoriteButtonEnum.property, {
     classActive: `property__bookmark-button--active property__bookmark-button button`,
     classNoActive: `property__bookmark-button button`,
     size: {
@@ -44,13 +44,13 @@ const placeMap = new Map([
     },
     classIcon: `property__bookmark-icon`,
   }]
-  
+
 ])
 
 const FavoriteButton: FunctionComponent<Props> = ({cardId, buttonPlace}) => {
   const [redirectLogin, setRedirectLogin] = useState(false)
-  const auth = appStateSelection.isAuth()
-  const isFavorite = hotelsSelection.hotelFavorites(+cardId)
+  const auth = useAppStateSelection.isAuth()
+  const isFavorite = useHotelsSelection.hotelFavorites(+cardId)
   const {thunkButtonFavorites} = useThunk()
   //eslint-disable-next-line
   //@ts-ignore

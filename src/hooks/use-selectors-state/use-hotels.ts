@@ -1,5 +1,5 @@
-import {THotels} from "../reducer/types-action-creators/hotels";
-import useTypedSelector from "../../hooks/use-selector-type";
+import {THotels} from "../../redux/reducer/types-action-creators/hotels";
+import useTypedSelector from "../use-selector-type";
 import Hotel from "../../types/hotel";
 
 type IHotels = {
@@ -8,7 +8,7 @@ type IHotels = {
   oneHotel(id: number): Hotel|undefined
 }
 
-const hotelsSelection : IHotels = {
+const useHotelsSelection : IHotels = {
   hotels(): THotels {
     return useTypedSelector(({hotels}) => hotels)
   },
@@ -20,4 +20,4 @@ const hotelsSelection : IHotels = {
   }
 }
 
-export default hotelsSelection
+export default useHotelsSelection

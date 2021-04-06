@@ -15,7 +15,7 @@ const customIcon = (img: string) => (leaflet.icon({
   iconSize: [27, 39]
 }))
 
-const MapFc: FC<{ hotels: Array<hotel>, activeId?: number }> = ({hotels, activeId = -1}) => {
+const MapFc: FC<{ hotels: Array<hotel>, activeId?: number, zoomActive?: boolean }> = ({hotels, activeId = -1, zoomActive = true}) => {
   const city = hotels[0].city.location
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const mapRef:any = useRef();
@@ -47,7 +47,9 @@ const MapFc: FC<{ hotels: Array<hotel>, activeId?: number }> = ({hotels, activeI
       if (hotels.id === activeId) {
         activeIcon = markerSVG.active
         active = false
-        mapRef.current.flyTo([hotels.location.latitude, hotels.location.longitude], hotels.location.zoom)
+        if(zoomActive){
+          mapRef.current.flyTo([hotels.location.latitude, hotels.location.longitude], hotels.location.zoom)
+        }
       }
       const link = `/offer/${hotels.id}`
       const tempMarker = leaflet.marker({
@@ -74,7 +76,9 @@ const MapFc: FC<{ hotels: Array<hotel>, activeId?: number }> = ({hotels, activeI
                <a href=${link}>offer link</a>`)
             .on('remove', () => {
               mapRef.current.flyTo([city.latitude, city.longitude], city.zoom)
-              tempMarker.setIcon(customIcon(markerSVG.inactive))
+              if (!(hotels.id === activeId)){
+                tempMarker.setIcon(customIcon(markerSVG.inactive))
+              }
             })
             .openOn(mapRef.current)
         })

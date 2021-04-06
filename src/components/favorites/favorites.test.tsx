@@ -5,10 +5,10 @@ import { createMemoryHistory } from 'history'
 import Favorites from "./favorites";
 import {mockArrayHotels} from "../../mock/mock-hotels";
 
-const favoriteSelection = {
+const useFavoriteSelection = {
   hotelsFavorite: ()=>JSON.parse(JSON.stringify(mockArrayHotels))
 }
-jest.mock("../../redux/selectors/favorite", ()=> favoriteSelection)
+jest.mock("../../hooks/use-selectors-state/use-favorite", ()=> useFavoriteSelection)
 
 //eslint-disable-next-line
 jest.mock("../block/header/header", ()=>()=><div>Header</div>)

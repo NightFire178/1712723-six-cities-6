@@ -1,9 +1,9 @@
-export enum placeFavoriteButtonEnum {
+export enum PlaceFavoriteButtonEnum {
   card = `card`,
   property = `property`
 }
 
-export enum cardPlaceEnum {
+export enum CardPlaceEnum {
   cities = `cities`,
   near = `near`,
   favorites = `favorites`

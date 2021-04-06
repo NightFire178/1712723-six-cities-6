@@ -353,6 +353,13 @@ Object {
                         style="margin-left: -13.5px; margin-top: -19.5px; width: 27px; height: 39px; left: 134px; top: -27px; z-index: -27;"
                         tabindex="0"
                       />
+                      <img
+                        alt=""
+                        class="leaflet-marker-icon leaflet-zoom-hide leaflet-interactive"
+                        src="img/pin-active.svg"
+                        style="margin-left: -13.5px; margin-top: -19.5px; width: 27px; height: 39px; left: -11657px; top: 18142px; z-index: 18142;"
+                        tabindex="0"
+                      />
                     </div>
                     <div
                       class="leaflet-pane leaflet-tooltip-pane"
@@ -781,6 +788,13 @@ Object {
                       class="leaflet-marker-icon leaflet-zoom-hide leaflet-interactive"
                       src="img/pin.svg"
                       style="margin-left: -13.5px; margin-top: -19.5px; width: 27px; height: 39px; left: 134px; top: -27px; z-index: -27;"
+                      tabindex="0"
+                    />
+                    <img
+                      alt=""
+                      class="leaflet-marker-icon leaflet-zoom-hide leaflet-interactive"
+                      src="img/pin-active.svg"
+                      style="margin-left: -13.5px; margin-top: -19.5px; width: 27px; height: 39px; left: -11657px; top: 18142px; z-index: 18142;"
                       tabindex="0"
                     />
                   </div>

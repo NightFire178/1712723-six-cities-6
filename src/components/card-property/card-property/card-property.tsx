@@ -8,10 +8,10 @@ import Loader from "../../block/loader/loader";
 import Comments from "../comments/comments/comments"
 import FavoriteButton from "../../block/favorite-button/favorite-button";
 import useThunk from "../../../hooks/use-thunk";
-import hotelsSelection from "../../../redux/selectors/hotels";
-import hotelInfoSelection from "../../../redux/selectors/hotel-info";
-import appStateSelection from "../../../redux/selectors/app-state";
-import {placeFavoriteButtonEnum} from "../../../enum";
+import useHotelsSelection from "../../../hooks/use-selectors-state/use-hotels";
+import useHotelInfoSelection from "../../../hooks/use-selectors-state/use-hotel-info";
+import useAppStateSelection from "../../../hooks/use-selectors-state/use-app-state";
+import {PlaceFavoriteButtonEnum} from "../../../enum";
 
 type TCardProperty = {
   match: {
@@ -25,10 +25,10 @@ const CardProperty: FC<TCardProperty> = (props) => {
   const [statusNotFound, setStatusNotFound] = useState(200)
   const {thunkHotelInfo} = useThunk()
   const cardId = +props.match.params.id;
-  const cardState = hotelsSelection.oneHotel(cardId)
-  const cardNearbyState = hotelInfoSelection.hotelInfoNearby(cardId)
-  const cardCommentsState = hotelInfoSelection.hotelInfoComment(cardId)
-  const isAuth = appStateSelection.isAuth()
+  const cardState = useHotelsSelection.oneHotel(cardId)
+  const cardNearbyState = useHotelInfoSelection.hotelInfoNearby(cardId)
+  const cardCommentsState = useHotelInfoSelection.hotelInfoComment(cardId)
+  const isAuth = useAppStateSelection.isAuth()
   useEffect(() => {
     thunkHotelInfo(cardId).then((resStatus: number) => {
       setStatusNotFound(resStatus)
@@ -99,7 +99,7 @@ const CardProperty: FC<TCardProperty> = (props) => {
                 )}
                 <div className="property__name-wrapper">
                   <h1 className="property__name">{cardState.title}</h1>
-                  <FavoriteButton cardId={cardState.id} buttonPlace={placeFavoriteButtonEnum.property}/>
+                  <FavoriteButton cardId={cardState.id} buttonPlace={PlaceFavoriteButtonEnum.property}/>
                 </div>
                 <div className="property__rating rating">
                   <div className="property__stars rating__stars">
@@ -168,7 +168,7 @@ const CardProperty: FC<TCardProperty> = (props) => {
                 width: 1144,
                 margin: `0 auto`,
               }}>
-              <MapFc hotels={cardNearbyState}/>
+              <MapFc hotels={[...cardNearbyState, cardState]} activeId={cardState.id} zoomActive={false}/>
             </section>
           </section>
           <div className="container">

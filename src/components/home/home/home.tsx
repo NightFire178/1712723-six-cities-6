@@ -3,12 +3,12 @@ import Header from "../../block/header/header";
 import Nav from "../../block/nav/nav";
 import MapFc from "../../block/map-fc/map-fc";
 import Hotels from "../hotels/hotels";
-import hotelsSelection from "../../../redux/selectors/hotels";
-import appStateSelection from "../../../redux/selectors/app-state";
+import useHotelsSelection from "../../../hooks/use-selectors-state/use-hotels";
+import useAppStateSelection from "../../../hooks/use-selectors-state/use-app-state";
 
 const HomeComponents: FC = () => {
-  const cityNow = appStateSelection.cityNow()
-  const tempHotels = hotelsSelection.hotels()
+  const cityNow = useAppStateSelection.cityNow()
+  const tempHotels = useHotelsSelection.hotels()
   const [activeId, setActiveId] = useState(-1)
   const hotels = useMemo(() => tempHotels.filter((obj) => obj.city.name === cityNow), [cityNow])
 
