@@ -1,4 +1,4 @@
-const cityes = [
+const Cityes = [
   `Paris`,
   `Cologne`,
   `Brussels`,
@@ -6,4 +6,4 @@ const cityes = [
   `Hamburg`,
   `Dusseldorf`,
 ];
-export default cityes
+export default Cityes

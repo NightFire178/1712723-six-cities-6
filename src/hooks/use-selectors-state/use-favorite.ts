@@ -2,7 +2,7 @@ import {TFavorite} from "../../redux/reducer/types-action-creators/favorite";
 import useTypedSelector from "../use-selector-type";
 import Hotel from "../../types/hotel";
 import hotel from "../../types/hotel";
-import cityes from "../../data/cityes";
+import Cityes from "../../data/cityes";
 import {createSelector} from 'reselect'
 
 type THotelsFavorite = {
@@ -29,7 +29,7 @@ const useFavoriteSelection: IFavorite = {
         // @ts-ignore
         const hotelsSelector: Array<hotel> | undefined = favorite.map((id) => (hotels.find((obj) => +obj.id === id)))
         if (hotelsSelector && hotelsSelector.length >= 0) {
-          cityes.forEach(value => {
+          Cityes.forEach(value => {
             if (hotelsSelector.findIndex(obj => obj.city.name === value) >= 0) {
               citySelector.push(value)
             }

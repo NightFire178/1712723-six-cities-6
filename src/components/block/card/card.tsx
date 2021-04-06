@@ -66,12 +66,12 @@ const Card: React.FC<ICard> = ({objCard, cardPlace, setActiveId}) => {
     title,
     preview_image: previewImage,
   } = objCard;
-  const handleActive = () => {
+  const handleActiveMapPoint = () => {
     if (setActiveId) {
       setActiveId(+objCard.id)
     }
   }
-  const handleInActive = () => {
+  const handleInActiveMapPoint = () => {
     if (setActiveId) {
       setActiveId(-1)
     }
@@ -80,8 +80,8 @@ const Card: React.FC<ICard> = ({objCard, cardPlace, setActiveId}) => {
   return (
     <>
       <article
-        onMouseEnter={handleActive}
-        onMouseLeave={handleInActive}
+        onMouseEnter={handleActiveMapPoint}
+        onMouseLeave={handleInActiveMapPoint}
         className={cardHTML.article}
       >
         {premium && (

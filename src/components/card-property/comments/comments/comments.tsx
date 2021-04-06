@@ -19,7 +19,7 @@ const Comments: FunctionComponent<Props> = ({id, cardCommentsState, isAuth}) => 
   const [hotelMaxComment, setHotelMaxComment] = useState(10)
   const [activeForm , setActiveFrom] = useState(false)
   const comments = useMemo(() => cardCommentsState.slice().sort((a, b) => (new Date(a.date).getTime() > new Date(b.date).getTime() ? -1 : 1)), [cardCommentsState]);
-  const onSubmitHandle = useCallback(
+  const handleAddComment = useCallback(
     async (data: IPostComment) => {
       setActiveFrom(true)
       // eslint-disable-next-line
@@ -96,7 +96,7 @@ const Comments: FunctionComponent<Props> = ({id, cardCommentsState, isAuth}) => 
     {isAuth && <form
       style={activeForm?{pointerEvents: "none"}:{}}
       className="reviews__form form"
-      onSubmit={handleSubmit(onSubmitHandle)}>
+      onSubmit={handleSubmit(handleAddComment)}>
       <label
         className="reviews__label form__label"
         htmlFor="review">

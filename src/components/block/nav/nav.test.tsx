@@ -1,11 +1,11 @@
 import React from 'react'
 import {render} from '@testing-library/react'
 import Nav from "./nav";
-import cityes from "../../../data/cityes";
+import Cityes from "../../../data/cityes";
 
 const useAppStateSelection = {
   cityNow(): string {
-    return cityes[0]
+    return Cityes[0]
   }
 }
 const useDispatch = ()=>(jest.fn())

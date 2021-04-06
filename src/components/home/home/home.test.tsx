@@ -1,7 +1,7 @@
 import React from 'react'
 import {render} from '@testing-library/react'
 import HomeComponents from "./home";
-import cityes from "../../../data/cityes";
+import Cityes from "../../../data/cityes";
 import {mockArrayHotels} from "../../../mock/mock-hotels";
 
 //eslint-disable-next-line
@@ -14,7 +14,7 @@ jest.mock("../../block/nav/nav", ()=>()=><div>nav</div>)
 jest.mock("../hotels/hotels", ()=>()=><div>hotels</div>)
 
 const useAppStateSelection = {
-  cityNow:() =>(cityes[0])
+  cityNow:() =>(Cityes[0])
 }
 
 jest.mock("../../../hooks/use-selectors-state/use-app-state", ()=>useAppStateSelection)

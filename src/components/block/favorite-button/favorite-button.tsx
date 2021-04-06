@@ -59,7 +59,7 @@ const FavoriteButton: FunctionComponent<Props> = ({cardId, buttonPlace}) => {
   if (redirectLogin) {
     return <Redirect to={"/login"}/>
   }
-  const handleButtonClick = () => {
+  const handleAddFavorite = () => {
     if (auth.now) {
       thunkButtonFavorites(+cardId)
     } else {
@@ -73,7 +73,7 @@ const FavoriteButton: FunctionComponent<Props> = ({cardId, buttonPlace}) => {
         : buttonHTML.classNoActive
     }
     type="button"
-    onClick={handleButtonClick}
+    onClick={handleAddFavorite}
   >
     <svg
       className={buttonHTML.classIcon}

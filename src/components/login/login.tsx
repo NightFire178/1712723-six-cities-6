@@ -37,7 +37,7 @@ const Login:FC = () => {
   const {register, handleSubmit, errors} = useForm({resolver: yupResolver(schema)})
   const {thunkPostLogin} = useThunk()
   const auth = useAppStateSelection.isAuth()?.now
-  const onSubmit = (data: { email: string, password: string }) => {
+  const handleLoginIn = (data: { email: string, password: string }) => {
     thunkPostLogin(data)
   }
   if (!auth) {
@@ -63,7 +63,7 @@ const Login:FC = () => {
             <div className="page__login-container container">
               <section className="login">
                 <h1 className="login__title">Sign in</h1>
-                <form className="login__form form" onSubmit={handleSubmit(onSubmit)} noValidate>
+                <form className="login__form form" onSubmit={handleSubmit(handleLoginIn)} noValidate>
                   {formInput.map((inp, i) => (
                     <div key={i} className="login__input-wrapper form__input-wrapper">
                       <label className="visually-hidden">{inp.label}</label>
